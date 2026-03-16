@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Construcción — El Estándar en Ingeniería Industrial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --bg:          #060C1A;
+  --bg2:         #0A1224;
+  --surface:     rgba(255,255,255,0.04);
+  --glass:       rgba(255,255,255,0.06);
+  --glass-border:rgba(255,255,255,0.10);
+  --ink:         #E4ECFF;
+  --ink2:        #A8B8D8;
+  --ink3:        rgba(168,184,216,0.55);
+  --ink4:        rgba(168,184,216,0.28);
+  --sky:         #38BEF8;
+  --sky-d:       #0EA5E9;
+  --sky-l:       rgba(56,190,248,0.10);
+  --sky-g:       rgba(56,190,248,0.22);
+  --violet:      #818CF8;
+  --violet-l:    rgba(129,140,248,0.12);
+  --border:      rgba(255,255,255,0.07);
+  --border2:     rgba(255,255,255,0.13);
+  --r-sm:        8px;
+  --r-md:        14px;
+  --r-lg:        20px;
+  --r-xl:        28px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:'Manrope',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  overflow-x:hidden;
+  cursor:none;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;height:auto;}
+button{font-family:'Manrope',sans-serif;cursor:none;border:none;background:none;}
+ul{list-style:none;}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+#scroll-progress{
+  position:fixed;top:0;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--sky),var(--violet));
+  z-index:9999;
+  transition:width 0.1s linear;
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+#cursor-dot{
+  position:fixed;width:6px;height:6px;border-radius:50%;
+  background:var(--sky);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform 0.08s ease;
+  mix-blend-mode:screen;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;border-radius:50%;
+  border:1.5px solid rgba(56,190,248,0.55);
+  pointer-events:none;z-index:9997;
+  transform:translate(-50%,-50%);
+  transition:transform 0.18s ease,width 0.2s ease,height 0.2s ease,border-color 0.2s ease;
+  mix-blend-mode:screen;
+}
+body:hover #cursor-dot,body:hover #cursor-ring{opacity:1;}
+
+/* ============================================================
+   DOT GRID TEXTURE
+   ============================================================ */
+.dot-grid{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(circle, rgba(168,184,216,0.08) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+
+/* ============================================================
+   LOADER
+   ============================================================ */
+#loader{
+  position:fixed;inset:0;z-index:9996;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity 0.5s ease,visibility 0.5s ease;
+}
+#loader.hidden{opacity:0;visibility:hidden;}
+.loader-glass{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-radius:var(--r-xl);
+  padding:48px 64px;
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+.loader-wordmark{
+  font-size:1.6rem;font-weight:800;letter-spacing:0.08em;
+  color:var(--ink);
+  opacity:0;animation:fadeInUp 0.6s ease 0.3s forwards;
+}
+.loader-wordmark span{color:var(--sky);}
+.loader-bar{
+  width:120px;height:2px;background:var(--border2);border-radius:99px;overflow:hidden;
+  opacity:0;animation:fadeInUp 0.5s ease 0.6s forwards;
+}
+.loader-bar-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--sky),var(--violet));
+  border-radius:99px;
+  animation:loaderFill 1.2s ease 0.7s forwards;
+}
+@keyframes loaderFill{to{width:100%;}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:16px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,12,26,0.40);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  transition:background 0.3s ease,padding 0.3s ease;
+}
+#nav.scrolled{
+  background:rgba(6,12,26,0.82);
+  border-bottom-color:var(--border2);
+  padding:12px 48px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:36px;width:auto;filter:brightness(1.1);}
+.nav-logo-text{font-size:0.8rem;font-weight:600;color:var(--ink2);letter-spacing:0.06em;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{
+  font-size:0.82rem;font-weight:500;color:var(--ink2);
+  padding:7px 14px;border-radius:99px;
+  transition:background 0.2s,color 0.2s;
+  letter-spacing:0.02em;
+}
+.nav-links a:hover{
+  background:rgba(255,255,255,0.08);
+  color:var(--ink);
+}
+.nav-cta{
+  font-size:0.82rem;font-weight:600;
+  padding:9px 20px;border-radius:99px;
+  background:var(--sky-l);
+  border:1px solid rgba(56,190,248,0.30);
+  color:var(--sky);
+  transition:background 0.2s,box-shadow 0.2s;
+  letter-spacing:0.02em;
+}
+.nav-cta:hover{
+  background:var(--sky-g);
+  box-shadow:0 0 20px rgba(56,190,248,0.25);
+}
+
+/* ============================================================
+   SECTIONS LAYOUT
+   ============================================================ */
+section{position:relative;overflow:hidden;}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:140px 24px 100px;
+  position:relative;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:url('../propuesta3/img/PHOTO-2026-01-30-15-38-50.jpg') center/cover no-repeat;
+}
+.hero-bg-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,12,26,0.72) 0%,rgba(6,12,26,0.55) 40%,rgba(6,12,26,0.88) 100%);
+}
+/* Glowing orbs */
+.orb{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:1;
+  filter:blur(80px);
+}
+.orb-sky{
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(56,190,248,0.18) 0%,transparent 70%);
+  top:-100px;left:-100px;
+}
+.orb-violet{
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(129,140,248,0.16) 0%,transparent 70%);
+  top:10%;right:-80px;
+}
+.orb-teal{
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(20,184,166,0.12) 0%,transparent 70%);
+  bottom:10%;left:30%;
+}
+.hero-content{position:relative;z-index:2;max-width:900px;}
+.hero-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.75rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--sky);
+  background:var(--sky-l);
+  border:1px solid rgba(56,190,248,0.22);
+  padding:6px 16px;border-radius:99px;
+  margin-bottom:28px;
+}
+.hero-label::before{
+  content:'';display:block;width:6px;height:6px;border-radius:50%;
+  background:var(--sky);
+  animation:pulse 2s ease infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.7);}}
+.hero-h1{
+  font-size:clamp(2.8rem,6vw,5.2rem);
+  font-weight:800;line-height:1.08;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  margin-bottom:20px;
+}
+.hero-h1 em{
+  font-style:italic;font-weight:300;
+  background:linear-gradient(135deg,var(--sky),var(--violet));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:1.08rem;font-weight:400;
+  color:var(--ink2);line-height:1.65;
+  max-width:560px;margin:0 auto 40px;
+}
+.hero-sub em{font-style:italic;color:var(--ink3);}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
+
+/* Gradient border button */
+.btn-primary{
+  position:relative;padding:2px;border-radius:99px;
+  background:conic-gradient(from var(--angle,0deg), var(--sky) 0%, var(--violet) 33%, #14B8A6 66%, var(--sky) 100%);
+  animation:rotateBorder 3s linear infinite;
+  display:inline-block;
+}
+@property --angle{syntax:'<angle>';initial-value:0deg;inherits:false;}
+@keyframes rotateBorder{to{--angle:360deg;}}
+.btn-primary-inner{
+  display:block;
+  background:var(--bg);padding:13px 32px;border-radius:99px;
+  font-size:0.9rem;font-weight:700;color:var(--sky);
+  letter-spacing:0.04em;
+  transition:background 0.2s;
+  white-space:nowrap;
+}
+.btn-primary:hover .btn-primary-inner{background:rgba(6,12,26,0.7);}
+.btn-secondary{
+  padding:14px 32px;border-radius:99px;
+  border:1px solid var(--border2);
+  font-size:0.9rem;font-weight:600;color:var(--ink2);
+  letter-spacing:0.03em;
+  background:var(--surface);
+  backdrop-filter:blur(8px);
+  transition:border-color 0.2s,color 0.2s,background 0.2s;
+  white-space:nowrap;
+  display:inline-block;
+}
+.btn-secondary:hover{
+  border-color:rgba(255,255,255,0.28);color:var(--ink);
+  background:rgba(255,255,255,0.08);
+}
+
+/* Hero stats */
+.hero-stats{
+  display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;
+}
+.stat-pill{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-radius:99px;
+  padding:12px 24px;
+  display:flex;align-items:center;gap:10px;
+  transition:box-shadow 0.2s,border-color 0.2s;
+}
+.stat-pill:hover{
+  box-shadow:0 0 24px rgba(56,190,248,0.15);
+  border-color:rgba(56,190,248,0.25);
+}
+.stat-num{font-size:1.25rem;font-weight:800;color:var(--sky);}
+.stat-lbl{font-size:0.75rem;font-weight:500;color:var(--ink2);}
+
+/* Scroll indicator */
+.scroll-indicator{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  z-index:2;opacity:0.55;
+}
+.scroll-indicator span{font-size:0.7rem;font-weight:500;color:var(--ink3);letter-spacing:0.1em;text-transform:uppercase;}
+.scroll-mouse{
+  width:22px;height:34px;border:1.5px solid rgba(168,184,216,0.35);
+  border-radius:11px;display:flex;justify-content:center;padding-top:6px;
+}
+.scroll-mouse::before{
+  content:'';width:3px;height:7px;background:var(--ink3);border-radius:99px;
+  animation:scrollDown 1.8s ease infinite;
+}
+@keyframes scrollDown{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(10px);}}
+
+/* ============================================================
+   SECTION HEADINGS
+   ============================================================ */
+.sec-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--sky);margin-bottom:14px;
+}
+.sec-label::before{content:'';display:block;width:20px;height:1.5px;background:var(--sky);}
+.sec-h2{
+  font-size:clamp(2rem,3.5vw,3rem);font-weight:800;
+  letter-spacing:-0.015em;color:var(--ink);line-height:1.1;
+}
+.sec-h2 span{
+  background:linear-gradient(135deg,var(--sky),var(--violet));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.sec-sub{font-size:1rem;font-weight:400;color:var(--ink2);line-height:1.65;max-width:520px;}
+
+/* ============================================================
+   REVEAL ANIMATION
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.revealed{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal-left.revealed{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(30px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal-right.revealed{opacity:1;transform:translateX(0);}
+
+/* ============================================================
+   SERVICIOS
+   ============================================================ */
+#servicios{
+  padding:120px 48px;
+  background:var(--bg);
+}
+.servicios-header{margin-bottom:60px;}
+.servicios-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid var(--border);border-radius:var(--r-xl);
+  overflow:hidden;
+  min-height:700px;
+}
+/* Left image panel */
+.svc-image-panel{
+  position:relative;overflow:hidden;
+  background:var(--bg2);
+  min-height:600px;
+}
+.svc-img{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  transition:opacity 0.5s ease;
+  opacity:0;
+}
+.svc-img.active{opacity:1;}
+.svc-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(6,12,26,0.7) 100%);
+  z-index:1;
+}
+.svc-img-caption{
+  position:absolute;bottom:28px;left:28px;right:28px;z-index:2;
+  opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;
+}
+.svc-img-caption.visible{opacity:1;transform:translateY(0);}
+.svc-cap-tag{
+  display:inline-block;font-size:0.68rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--sky);
+  background:var(--sky-l);border:1px solid rgba(56,190,248,0.22);
+  padding:4px 12px;border-radius:99px;margin-bottom:8px;
+}
+.svc-cap-title{font-size:1.1rem;font-weight:700;color:var(--ink);}
+
+/* Right services list */
+.svc-list{
+  border-left:1px solid var(--border);
+  overflow-y:auto;
+}
+.svc-item{
+  padding:22px 32px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:16px;
+  cursor:none;
+  transition:background 0.2s;
+  position:relative;
+}
+.svc-item:last-child{border-bottom:none;}
+.svc-item:hover,.svc-item.active{background:rgba(56,190,248,0.04);}
+.svc-item.active::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--sky),var(--violet));
+}
+.svc-num{
+  font-size:0.7rem;font-weight:700;color:var(--sky);
+  letter-spacing:0.08em;min-width:28px;padding-top:2px;
+}
+.svc-icon{
+  width:32px;height:32px;
+  background:var(--sky-l);border:1px solid rgba(56,190,248,0.15);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background 0.2s,box-shadow 0.2s;
+}
+.svc-item:hover .svc-icon,.svc-item.active .svc-icon{
+  background:var(--sky-g);
+  box-shadow:0 0 14px rgba(56,190,248,0.25);
+}
+.svc-icon svg{width:16px;height:16px;stroke:var(--sky);fill:none;stroke-width:1.8;}
+.svc-text{flex:1;}
+.svc-title{font-size:0.88rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.svc-desc{font-size:0.75rem;font-weight:400;color:var(--ink3);line-height:1.5;}
+.svc-arrow{
+  width:20px;height:20px;display:flex;align-items:center;justify-content:center;
+  color:var(--ink4);margin-top:2px;flex-shrink:0;
+  transition:color 0.2s,transform 0.2s;
+}
+.svc-item:hover .svc-arrow,.svc-item.active .svc-arrow{color:var(--sky);transform:translateX(3px);}
+
+/* ============================================================
+   MÉTRICAS
+   ============================================================ */
+#metricas{
+  padding:120px 48px;
+  position:relative;
+  background:var(--bg2);
+}
+.metricas-bg{
+  position:absolute;inset:0;
+  background:url('../propuesta3/img/PHOTO-2026-01-30-15-46-10.jpg') center/cover no-repeat;
+  opacity:0.12;
+}
+.metricas-inner{position:relative;z-index:1;}
+.metricas-cards{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
+  margin-top:60px;
+}
+.metric-card{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:var(--r-lg);
+  padding:32px 24px;
+  text-align:center;
+  transition:box-shadow 0.3s,border-color 0.3s,transform 0.3s;
+}
+.metric-card:hover{
+  box-shadow:0 0 40px rgba(56,190,248,0.18),inset 0 1px 0 rgba(255,255,255,0.12);
+  border-color:rgba(56,190,248,0.28);
+  transform:translateY(-4px);
+}
+.metric-icon{
+  width:40px;height:40px;background:var(--sky-l);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+}
+.metric-icon svg{width:20px;height:20px;stroke:var(--sky);fill:none;stroke-width:1.8;}
+.metric-num{font-size:2.4rem;font-weight:800;color:var(--sky);line-height:1;}
+.metric-suffix{font-size:1.4rem;font-weight:800;color:var(--sky);}
+.metric-lbl{font-size:0.78rem;font-weight:500;color:var(--ink2);margin-top:8px;line-height:1.4;}
+
+/* ============================================================
+   NOSOTROS
+   ============================================================ */
+#nosotros{
+  padding:120px 48px;
+  background:var(--bg);
+}
+.nosotros-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.nosotros-img-wrap{position:relative;}
+.nosotros-img{
+  width:100%;height:540px;object-fit:cover;
+  border-radius:var(--r-xl);
+  border:1px solid var(--border);
+}
+.nosotros-info-card{
+  position:absolute;bottom:-24px;left:-24px;right:40px;
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:var(--r-lg);
+  padding:24px 28px;
+}
+.nosotros-info-card h4{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--sky);margin-bottom:10px;}
+.nosotros-info-row{display:flex;gap:24px;}
+.nosotros-info-item{display:flex;flex-direction:column;gap:2px;}
+.nosotros-info-val{font-size:1.4rem;font-weight:800;color:var(--ink);}
+.nosotros-info-key{font-size:0.72rem;font-weight:500;color:var(--ink3);}
+
+.nosotros-content{padding-top:16px;}
+.nosotros-quote{
+  font-size:1.05rem;font-weight:400;font-style:italic;
+  color:var(--ink2);line-height:1.7;
+  border-left:2px solid var(--sky);padding-left:20px;
+  margin:24px 0 36px;
+}
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;}
+.mv-card{
+  background:var(--glass);border:1px solid var(--glass-border);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-radius:var(--r-md);padding:20px;
+}
+.mv-card h5{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--sky);margin-bottom:8px;}
+.mv-card p{font-size:0.8rem;font-weight:400;color:var(--ink2);line-height:1.55;}
+.values-row{display:flex;flex-wrap:wrap;gap:8px;}
+.value-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:0.75rem;font-weight:600;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--border2);
+  padding:7px 14px;border-radius:99px;
+  transition:background 0.2s,border-color 0.2s,color 0.2s;
+}
+.value-chip:hover{background:var(--violet-l);border-color:rgba(129,140,248,0.3);color:var(--ink);}
+.value-chip svg{width:14px;height:14px;stroke:var(--violet);fill:none;stroke-width:1.8;}
+
+/* ============================================================
+   PROYECTOS
+   ============================================================ */
+#proyectos{
+  padding:120px 48px;
+  background:var(--bg2);
+}
+.proyectos-header{margin-bottom:56px;}
+.masonry-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto;
+  gap:16px;
+}
+.proj-card{
+  position:relative;overflow:hidden;border-radius:var(--r-lg);
+  border:1px solid var(--border);cursor:none;
+  transition:box-shadow 0.3s,transform 0.3s;
+}
+.proj-card:hover{
+  box-shadow:0 0 48px rgba(56,190,248,0.18);
+  transform:translateY(-3px);
+}
+.proj-card:nth-child(1){grid-row:span 2;}
+.proj-card:nth-child(4){grid-row:span 2;}
+
+.proj-img{
+  width:100%;height:100%;min-height:260px;
+  object-fit:cover;
+  transition:transform 0.5s ease;
+  display:block;
+}
+.proj-card:nth-child(1) .proj-img,
+.proj-card:nth-child(4) .proj-img{min-height:520px;}
+.proj-card:hover .proj-img{transform:scale(1.04);}
+.proj-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 35%,rgba(6,12,26,0.88) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:24px;
+  opacity:0.85;
+  transition:opacity 0.3s;
+}
+.proj-card:hover .proj-overlay{opacity:1;}
+.proj-tag{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--sky);background:var(--sky-l);border:1px solid rgba(56,190,248,0.2);
+  padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:8px;
+  align-self:flex-start;
+}
+.proj-title{font-size:0.95rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:4px;}
+.proj-loc{font-size:0.72rem;font-weight:500;color:var(--ink3);}
+
+/* ============================================================
+   PREGUNTAS
+   ============================================================ */
+#preguntas{
+  padding:120px 48px;
+  background:var(--bg);
+}
+.preguntas-grid{display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start;}
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.faq-trigger{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:22px 0;gap:16px;
+  cursor:none;
+  transition:color 0.2s;
+}
+.faq-trigger:hover .faq-q{color:var(--ink);}
+.faq-num{font-size:0.72rem;font-weight:700;color:var(--sky);min-width:28px;}
+.faq-q{font-size:0.95rem;font-weight:600;color:var(--ink2);flex:1;text-align:left;transition:color 0.2s;}
+.faq-icon{
+  width:24px;height:24px;border-radius:50%;
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:background 0.2s,border-color 0.2s,transform 0.3s;
+}
+.faq-item.open .faq-icon{
+  background:var(--sky-l);border-color:rgba(56,190,248,0.3);
+  transform:rotate(45deg);
+}
+.faq-icon svg{width:12px;height:12px;stroke:var(--ink2);fill:none;stroke-width:2.5;}
+.faq-item.open .faq-icon svg{stroke:var(--sky);}
+.faq-item.open .faq-q{color:var(--ink);}
+.faq-body{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.35s ease,padding 0.35s ease;
+  padding:0 0 0 28px;
+}
+.faq-item.open .faq-body{max-height:200px;padding:0 0 20px 28px;}
+.faq-body p{font-size:0.85rem;font-weight:400;color:var(--ink2);line-height:1.7;}
+
+/* Sticky contact card */
+.sticky-contact{position:sticky;top:100px;}
+.contact-mini-card{
+  background:var(--glass);border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-radius:var(--r-xl);padding:36px 32px;
+}
+.contact-mini-card h3{font-size:1.3rem;font-weight:800;color:var(--ink);line-height:1.2;margin-bottom:12px;}
+.contact-mini-card p{font-size:0.85rem;color:var(--ink2);line-height:1.6;margin-bottom:28px;}
+.contact-mini-divider{height:1px;background:var(--border);margin:24px 0;}
+.contact-mini-detail{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.contact-mini-detail svg{width:16px;height:16px;stroke:var(--sky);fill:none;stroke-width:1.8;flex-shrink:0;}
+.contact-mini-detail span{font-size:0.8rem;color:var(--ink2);}
+
+/* ============================================================
+   CONTACTO
+   ============================================================ */
+#contacto{
+  padding:120px 48px;
+  background:var(--bg2);
+  position:relative;
+}
+.contacto-orb-sky{
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(56,190,248,0.09) 0%,transparent 70%);
+  top:-100px;right:-50px;
+  position:absolute;border-radius:50%;
+  filter:blur(60px);pointer-events:none;
+}
+.contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;position:relative;z-index:1;}
+.contacto-headline{font-size:clamp(2rem,3.5vw,2.8rem);font-weight:800;color:var(--ink);line-height:1.1;margin-bottom:20px;letter-spacing:-0.015em;}
+.contacto-headline span{
+  background:linear-gradient(135deg,var(--sky),var(--violet));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.contacto-sub{font-size:0.95rem;color:var(--ink2);line-height:1.65;margin-bottom:40px;}
+.contacto-details{display:flex;flex-direction:column;gap:18px;}
+.contacto-detail{display:flex;align-items:flex-start;gap:14px;}
+.contacto-detail-icon{
+  width:38px;height:38px;background:var(--sky-l);
+  border:1px solid rgba(56,190,248,0.18);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.contacto-detail-icon svg{width:18px;height:18px;stroke:var(--sky);fill:none;stroke-width:1.8;}
+.contacto-detail-text strong{display:block;font-size:0.8rem;font-weight:700;color:var(--sky);margin-bottom:2px;text-transform:uppercase;letter-spacing:0.06em;}
+.contacto-detail-text span{font-size:0.88rem;color:var(--ink2);}
+
+/* Form */
+.form-glass{
+  background:var(--glass);border:1px solid var(--glass-border);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-radius:var(--r-xl);padding:40px 36px;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:0.75rem;font-weight:600;color:var(--ink2);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:7px;}
+.form-input,.form-select,.form-textarea{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid var(--border2);border-radius:var(--r-sm);
+  padding:12px 16px;
+  font-family:'Manrope',sans-serif;font-size:0.88rem;font-weight:400;
+  color:var(--ink);outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s,background 0.2s;
+  -webkit-appearance:none;
+}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--ink4);}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:rgba(56,190,248,0.45);
+  box-shadow:0 0 0 3px rgba(56,190,248,0.08);
+  background:rgba(255,255,255,0.06);
+}
+.form-select{color:var(--ink2);cursor:none;}
+.form-select option{background:var(--bg2);color:var(--ink);}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.55;}
+.form-submit{
+  position:relative;padding:2px;border-radius:99px;
+  background:conic-gradient(from var(--angle,0deg), var(--sky) 0%, var(--violet) 33%, #14B8A6 66%, var(--sky) 100%);
+  animation:rotateBorder 3s linear infinite;
+  display:block;width:100%;margin-top:8px;
+}
+.form-submit-inner{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--bg);padding:14px 32px;border-radius:99px;
+  font-size:0.9rem;font-weight:700;color:var(--sky);
+  letter-spacing:0.04em;
+  transition:background 0.2s;
+  width:100%;cursor:none;
+}
+.form-submit:hover .form-submit-inner{background:rgba(6,12,26,0.7);}
+.form-submit-inner svg{width:16px;height:16px;stroke:var(--sky);fill:none;stroke-width:2;}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+#footer{
+  padding:72px 48px 36px;
+  background:var(--bg);
+  border-top:1px solid var(--border);
+}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px;}
+.footer-brand .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.footer-brand .footer-logo img{height:32px;filter:brightness(1.1);}
+.footer-brand-desc{font-size:0.82rem;color:var(--ink3);line-height:1.65;max-width:260px;margin-bottom:20px;}
+.cert-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.cert-badge{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink3);background:var(--surface);border:1px solid var(--border);
+  padding:5px 10px;border-radius:6px;
+}
+.footer-col h6{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sky);margin-bottom:16px;}
+.footer-col ul li{margin-bottom:10px;}
+.footer-col ul li a{font-size:0.82rem;color:var(--ink3);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--ink);}
+.footer-bottom{
+  border-top:1px solid var(--border);padding-top:28px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.footer-copy{font-size:0.75rem;color:var(--ink4);}
+.footer-copy span{color:var(--sky);}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{font-size:0.75rem;color:var(--ink4);transition:color 0.2s;}
+.footer-legal a:hover{color:var(--ink2);}
+
+/* ============================================================
+   MAGNETIC BUTTON
+   ============================================================ */
+.magnetic{transition:transform 0.3s cubic-bezier(0.23,1,0.32,1);}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1100px){
+  .metricas-cards{grid-template-columns:repeat(3,1fr);}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:900px){
+  #nav{padding:14px 24px;}
+  #nav.scrolled{padding:10px 24px;}
+  .nav-links{display:none;}
+  #servicios,#metricas,#nosotros,#proyectos,#preguntas,#contacto{padding:80px 24px;}
+  .servicios-grid{grid-template-columns:1fr;}
+  .svc-image-panel{min-height:320px;}
+  .nosotros-grid{grid-template-columns:1fr;}
+  .nosotros-info-card{position:static;margin-top:-48px;margin-left:16px;right:auto;bottom:auto;}
+  .masonry-grid{grid-template-columns:1fr 1fr;}
+  .proj-card:nth-child(1),.proj-card:nth-child(4){grid-row:auto;}
+  .proj-card:nth-child(1) .proj-img,.proj-card:nth-child(4) .proj-img{min-height:260px;}
+  .preguntas-grid{grid-template-columns:1fr;}
+  .contacto-grid{grid-template-columns:1fr;}
+  .metricas-cards{grid-template-columns:repeat(2,1fr);}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .hero-h1{font-size:2.4rem;}
+  .masonry-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .metricas-cards{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div id="scroll-progress"></div>
+
+<!-- Custom Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- ============================================================
+     LOADER
+     ============================================================ -->
+<div id="loader">
+  <div class="loader-glass">
+    <div class="loader-wordmark">HERMES <span>CONSTRUCCIÓN</span></div>
+    <div style="font-size:0.7rem;font-weight:500;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase;opacity:0;animation:fadeInUp 0.5s ease 0.8s forwards;">Ingeniería Industrial</div>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav id="nav">
+  <a href="#" class="nav-logo magnetic">
+    <img src="../propuesta3/img/innovadora hermes logo.png" alt="Hermes Construcción">
+    <span class="nav-logo-text">Construcción</span>
+  </a>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#preguntas">FAQ</a>
+  </div>
+  <a href="#contacto" class="nav-cta magnetic">Contactar</a>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="hero-bg" id="hero-bg-parallax"></div>
+  <div class="hero-bg-overlay"></div>
+  <div class="dot-grid"></div>
+  <!-- Orbs -->
+  <div class="orb orb-sky"></div>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-teal"></div>
+  <div class="hero-content reveal">
+    <div class="hero-label">Ingeniería Industrial de Élite</div>
+    <h1 class="hero-h1">El Estándar en<br><em>Ingeniería Industrial</em></h1>
+    <p class="hero-sub">Diseño, suministro e instalación de sistemas MEP para la industria mexicana. <em>Precisión. Confiabilidad. Resultados.</em></p>
+    <div class="hero-ctas">
+      <a href="#proyectos" class="btn-primary magnetic"><span class="btn-primary-inner">Ver Proyectos</span></a>
+      <a href="#contacto" class="btn-secondary magnetic">Solicitar Cotización</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <span class="stat-num">40<sup>+</sup></span>
+        <span class="stat-lbl">Ingenieros<br>certificados</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">5<sup>+</sup></span>
+        <span class="stat-lbl">Años de<br>experiencia</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">99<sup>+</sup></span>
+        <span class="stat-lbl">Proyectos<br>completados</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">8<sup>+</sup></span>
+        <span class="stat-lbl">Estados<br>de la República</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-mouse"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICIOS
+     ============================================================ -->
+<section id="servicios">
+  <div class="dot-grid"></div>
+  <div class="servicios-header reveal">
+    <div class="sec-label">Especialidades</div>
+    <h2 class="sec-h2">Nuestros <span>Servicios</span></h2>
+    <p class="sec-sub" style="margin-top:12px;">Soluciones integrales de ingeniería eléctrica, mecánica y especial para industria, infraestructura y comercio.</p>
+  </div>
+  <div class="servicios-grid reveal">
+    <!-- Left image panel -->
+    <div class="svc-image-panel">
+      <div class="svc-img active" id="svc-img-0" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-46-10.jpg')"></div>
+      <div class="svc-img" id="svc-img-1" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-38-50.jpg')"></div>
+      <div class="svc-img" id="svc-img-2" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-55-23.jpg')"></div>
+      <div class="svc-img" id="svc-img-3" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-55-52.jpg')"></div>
+      <div class="svc-img" id="svc-img-4" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-54-22.jpg')"></div>
+      <div class="svc-img" id="svc-img-5" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-53-08.jpg')"></div>
+      <div class="svc-img" id="svc-img-6" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-40-06.jpg')"></div>
+      <div class="svc-img" id="svc-img-7" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-49-05.jpg')"></div>
+      <div class="svc-img" id="svc-img-8" style="background-image:url('../propuesta3/img/PHOTO-2026-01-30-15-44-36.jpg')"></div>
+      <div class="svc-img-overlay"></div>
+      <div class="svc-img-caption" id="svc-caption">
+        <span class="svc-cap-tag" id="svc-cap-tag">Subestaciones</span>
+        <div class="svc-cap-title" id="svc-cap-title">Subestación Eléctrica QRO</div>
+      </div>
+    </div>
+    <!-- Right list -->
+    <div class="svc-list">
+      <div class="svc-item active" data-img="0" data-tag="Subestaciones" data-caption="Subestación Eléctrica QRO">
+        <span class="svc-num">01</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Subestaciones Eléctricas</div>
+          <div class="svc-desc">Diseño e instalación de subestaciones de media y alta tensión hasta 115kV.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-item" data-img="1" data-tag="Plantas" data-caption="Plantas de Emergencia">
+        <span class="svc-num">02</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Plantas de Emergencia</div>
+          <div class="svc-desc">Suministro e instalación de generadores desde 20 kVA hasta 2 MW.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-item" data-img="2" data-tag="VRV/VRF" data-caption="Sistema VRV Daikin CDMX">
+        <span class="svc-num">03</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Sistemas VRV / VRF</div>
+          <div class="svc-desc">Climatización de alta eficiencia con tecnología de volumen de refrigerante variable.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-item" data-img="3" data-tag="Calderas" data-caption="Caldera Industrial MTY">
+        <span class="svc-num">04</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.49 15.26L12 22l8.49-4.74A10 10 0 0 0 12 2z"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Calderas Industriales</div>
+          <div class="svc-desc">Instalación y mantenimiento de calderas de vapor y agua caliente para procesos industriales.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-item" data-img="4" data-tag="HVAC" data-caption="Sistema HVAC Carrier">
+        <span class="svc-num">05</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Sistemas HVAC</div>
+          <div class="svc-desc">Diseño e instalación de sistemas de calefacción, ventilación y aire acondicionado.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-item" data-img="5" data-tag="Tierras" data-caption="Puesta a Tierra Industrial">
+        <span class="svc-num">06</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Puesta a Tierra</div>
+          <div class="svc-desc">Sistemas de puesta a tierra y protección contra descargas atmosféricas conforme NOM.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-item" data-img="6" data-tag="PTAR" data-caption="Planta PTAR Puebla">
+        <span class="svc-num">07</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Plantas de Tratamiento</div>
+          <div class="svc-desc">Diseño y construcción de PTAR para industria manufacturera y desarrollos urbanos.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-item" data-img="7" data-tag="VRF León" data-caption="Sistema VRF León Gto.">
+        <span class="svc-num">08</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Iluminación Industrial</div>
+          <div class="svc-desc">Proyectos de eficiencia energética con tecnología LED para naves industriales y plantas.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="svc-item" data-img="8" data-tag="Ventilación" data-caption="Sistemas de Ventilación">
+        <span class="svc-num">09</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+        </div>
+        <div class="svc-text">
+          <div class="svc-title">Ventilación Industrial</div>
+          <div class="svc-desc">Sistemas de extracción, inyección y control de calidad de aire en ambientes industriales.</div>
+        </div>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÉTRICAS
+     ============================================================ -->
+<section id="metricas">
+  <div class="metricas-bg"></div>
+  <div class="metricas-inner">
+    <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto;">
+      <div class="sec-label" style="justify-content:center;">Números que respaldan</div>
+      <h2 class="sec-h2">Resultados que <span>hablan</span></h2>
+      <p class="sec-sub" style="margin:12px auto 0;">Cada cifra es el reflejo de proyectos entregados a tiempo, con calidad certificada y clientes satisfechos.</p>
+    </div>
+    <div class="metricas-cards reveal">
+      <div class="metric-card">
+        <div class="metric-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div><span class="metric-num" data-target="40">0</span><span class="metric-suffix">+</span></div>
+        <div class="metric-lbl">Ingenieros<br>certificados</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div><span class="metric-num" data-target="5">0</span><span class="metric-suffix">+</span></div>
+        <div class="metric-lbl">Años de<br>experiencia</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div><span class="metric-num" data-target="99">0</span><span class="metric-suffix">+</span></div>
+        <div class="metric-lbl">Proyectos<br>completados</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div><span class="metric-num" data-target="2">0</span><span class="metric-suffix"></span></div>
+        <div class="metric-lbl">Certificaciones<br>internacionales</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div><span class="metric-num" data-target="8">0</span><span class="metric-suffix">+</span></div>
+        <div class="metric-lbl">Estados de<br>la República</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     NOSOTROS
+     ============================================================ -->
+<section id="nosotros">
+  <div class="dot-grid"></div>
+  <div class="nosotros-grid">
+    <div class="nosotros-img-wrap reveal-left">
+      <img class="nosotros-img" src="../propuesta3/img/PHOTO-2026-01-30-15-21-03.jpg" alt="Equipo Hermes Construcción">
+      <div class="nosotros-info-card">
+        <h4>En cifras</h4>
+        <div class="nosotros-info-row">
+          <div class="nosotros-info-item">
+            <span class="nosotros-info-val">40+</span>
+            <span class="nosotros-info-key">Ingenieros</span>
+          </div>
+          <div class="nosotros-info-item">
+            <span class="nosotros-info-val">5+</span>
+            <span class="nosotros-info-key">Años</span>
+          </div>
+          <div class="nosotros-info-item">
+            <span class="nosotros-info-val">8+</span>
+            <span class="nosotros-info-key">Estados</span>
+          </div>
+          <div class="nosotros-info-item">
+            <span class="nosotros-info-val">99+</span>
+            <span class="nosotlos-info-key">Proyectos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nosotros-content reveal-right">
+      <div class="sec-label">Quiénes somos</div>
+      <h2 class="sec-h2">Ingeniería con <span>propósito</span></h2>
+      <blockquote class="nosotros-quote">
+        "Somos el puente entre la visión de nuestros clientes y la realidad física de sus proyectos. No instalamos equipos, construimos el futuro de la industria mexicana."
+      </blockquote>
+      <p style="font-size:0.88rem;color:var(--ink2);line-height:1.7;margin-bottom:28px;">
+        Hermes Construcción es una empresa de ingeniería especializada en sistemas MEP (Mecánicos, Eléctricos y de Plomería) para proyectos industriales, comerciales e institucionales. Con presencia en más de 8 estados de la República Mexicana y un equipo de más de 40 ingenieros certificados.
+      </p>
+      <div class="mv-grid">
+        <div class="mv-card">
+          <h5>Misión</h5>
+          <p>Proveer soluciones de ingeniería industrial con los más altos estándares de calidad, seguridad y eficiencia para la industria mexicana.</p>
+        </div>
+        <div class="mv-card">
+          <h5>Visión</h5>
+          <p>Ser la empresa líder en ingeniería MEP en México, reconocida por innovación, confiabilidad y excelencia técnica al 2030.</p>
+        </div>
+      </div>
+      <div class="values-row">
+        <div class="value-chip">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Trabajo en equipo
+        </div>
+        <div class="value-chip">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          Innovación
+        </div>
+        <div class="value-chip">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Seguridad
+        </div>
+        <div class="value-chip">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Calidad
+        </div>
+        <div class="value-chip">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Excelencia
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROYECTOS
+     ============================================================ -->
+<section id="proyectos">
+  <div class="proyectos-header reveal">
+    <div class="sec-label">Portafolio</div>
+    <h2 class="sec-h2">Proyectos <span>destacados</span></h2>
+    <p class="sec-sub" style="margin-top:12px;">Soluciones ejecutadas en toda la República Mexicana para los sectores aeroportuario, industrial y comercial.</p>
+  </div>
+  <div class="masonry-grid">
+    <div class="proj-card reveal">
+      <img class="proj-img" src="../propuesta3/img/PHOTO-2026-01-30-15-16-56.jpg" alt="Aeropuerto Campeche">
+      <div class="proj-overlay">
+        <span class="proj-tag">Aeropuerto</span>
+        <div class="proj-title">Sistema Eléctrico Aeropuerto Campeche</div>
+        <div class="proj-loc">Campeche, Mexico</div>
+      </div>
+    </div>
+    <div class="proj-card reveal" style="transition-delay:0.1s">
+      <img class="proj-img" src="../propuesta3/img/PHOTO-2026-01-30-15-55-23.jpg" alt="VRV Daikin CDMX">
+      <div class="proj-overlay">
+        <span class="proj-tag">HVAC</span>
+        <div class="proj-title">VRV Daikin 350TR</div>
+        <div class="proj-loc">Ciudad de México</div>
+      </div>
+    </div>
+    <div class="proj-card reveal" style="transition-delay:0.15s">
+      <img class="proj-img" src="../propuesta3/img/PHOTO-2026-01-30-15-39-39.jpg" alt="Plantas de Emergencia">
+      <div class="proj-overlay">
+        <span class="proj-tag">Generación</span>
+        <div class="proj-title">Planta de Emergencia 1.5 MW</div>
+        <div class="proj-loc">Monterrey, N.L.</div>
+      </div>
+    </div>
+    <div class="proj-card reveal" style="transition-delay:0.2s">
+      <img class="proj-img" src="../propuesta3/img/PHOTO-2026-01-30-15-46-10.jpg" alt="Subestación QRO">
+      <div class="proj-overlay">
+        <span class="proj-tag">Alta Tensión</span>
+        <div class="proj-title">Subestación 115kV Querétaro</div>
+        <div class="proj-loc">Querétaro, Qro.</div>
+      </div>
+    </div>
+    <div class="proj-card reveal" style="transition-delay:0.25s">
+      <img class="proj-img" src="../propuesta3/img/PHOTO-2026-01-30-15-40-06.jpg" alt="PTAR Puebla">
+      <div class="proj-overlay">
+        <span class="proj-tag">Agua</span>
+        <div class="proj-title">PTAR 80 L/s Parque Industrial</div>
+        <div class="proj-loc">Puebla, Pue.</div>
+      </div>
+    </div>
+    <div class="proj-card reveal" style="transition-delay:0.3s">
+      <img class="proj-img" src="../propuesta3/img/PHOTO-2026-01-30-15-49-05.jpg" alt="VRF León">
+      <div class="proj-overlay">
+        <span class="proj-tag">VRF</span>
+        <div class="proj-title">Sistema VRF 200TR Centro Comercial</div>
+        <div class="proj-loc">León, Gto.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PREGUNTAS
+     ============================================================ -->
+<section id="preguntas">
+  <div class="dot-grid"></div>
+  <div style="margin-bottom:56px;" class="reveal">
+    <div class="sec-label">Preguntas frecuentes</div>
+    <h2 class="sec-h2">Todo lo que <span>necesitas saber</span></h2>
+  </div>
+  <div class="preguntas-grid">
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <button class="faq-trigger" aria-expanded="true">
+          <span class="faq-num">01</span>
+          <span class="faq-q">¿En qué estados de México operan?</span>
+          <span class="faq-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Contamos con presencia y capacidad de operación en más de 8 estados de la República Mexicana: CDMX, Estado de México, Querétaro, Nuevo León, Puebla, Guanajuato, Campeche y Jalisco, con capacidad de expansión nacional.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-num">02</span>
+          <span class="faq-q">¿Qué tipos de proyectos ejecutan?</span>
+          <span class="faq-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Ejecutamos proyectos de ingeniería eléctrica, mecánica y especial para sectores industrial, aeroportuario, hotelero, comercial e institucional. Desde subestaciones eléctricas hasta plantas de tratamiento de aguas residuales.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-num">03</span>
+          <span class="faq-q">¿Cuánto tiempo toma un proyecto típico?</span>
+          <span class="faq-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Los tiempos varían según la complejidad: desde 2 semanas para instalaciones menores hasta 18 meses para proyectos de gran escala. Siempre entregamos un cronograma detallado antes de iniciar.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-num">04</span>
+          <span class="faq-q">¿Ofrecen garantía en sus instalaciones?</span>
+          <span class="faq-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Sí. Todos nuestros proyectos incluyen garantía de 1 año en mano de obra y respetamos la garantía de fábrica de los equipos instalados. Ofrecemos también contratos de mantenimiento preventivo anual.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-num">05</span>
+          <span class="faq-q">¿Trabajan con qué marcas de equipos?</span>
+          <span class="faq-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Somos integradores certificados de marcas líderes como Daikin, Carrier, Trane, Caterpillar, Cummins, ABB, Siemens, Schneider Electric y más, según los requerimientos técnicos y presupuesto de cada proyecto.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-num">06</span>
+          <span class="faq-q">¿Realizan proyectos llave en mano?</span>
+          <span class="faq-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Sí. Ofrecemos el servicio completo: ingeniería de detalle, suministro de equipos y materiales, instalación, puesta en marcha, capacitación al personal y entrega de manuales técnicos y dossier de obra.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-num">07</span>
+          <span class="faq-q">¿Cuentan con capacidad financiera para proyectos grandes?</span>
+          <span class="faq-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Contamos con líneas de crédito con proveedores estratégicos y financiamiento de proyectos. Hemos ejecutado proyectos con valor superior a $50 MDP. Podemos adaptarnos a esquemas de pago por avances o contra entrega.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-num">08</span>
+          <span class="faq-q">¿Cómo inicio el proceso de cotización?</span>
+          <span class="faq-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Contáctenos por cualquier medio con el nombre del proyecto, ubicación, alcance aproximado y fecha requerida. En menos de 24 horas un ingeniero especialista se pondrá en contacto para agendar una visita técnica sin costo.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Sticky contact card -->
+    <div class="sticky-contact reveal-right">
+      <div class="contact-mini-card">
+        <h3>¿Listo para su proyecto?</h3>
+        <p>Contáctenos ahora y reciba una consulta técnica gratuita con un ingeniero especialista en menos de 24 horas.</p>
+        <a href="#contacto" class="btn-primary magnetic" style="display:block;"><span class="btn-primary-inner" style="text-align:center;">Iniciar proyecto</span></a>
+        <div class="contact-mini-divider"></div>
+        <div class="contact-mini-detail">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.53 6.53l1.62-1.62a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+52 (55) 1234-5678</span>
+        </div>
+        <div class="contact-mini-detail">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>contacto@hermesconstruccion.mx</span>
+        </div>
+        <div class="contact-mini-detail">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Lun–Vie: 8:00am – 7:00pm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACTO
+     ============================================================ -->
+<section id="contacto">
+  <div class="contacto-orb-sky"></div>
+  <div class="dot-grid"></div>
+  <div class="contacto-grid">
+    <div class="reveal-left">
+      <div class="sec-label">Contacto</div>
+      <h2 class="contacto-headline">Hablemos de su<br><span>próximo proyecto</span></h2>
+      <p class="contacto-sub">Cuéntenos sus necesidades. Nuestros ingenieros especializados analizarán su proyecto y presentarán una propuesta técnica detallada sin costo ni compromiso.</p>
+      <div class="contacto-details">
+        <div class="contacto-detail">
+          <div class="contacto-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.53 6.53l1.62-1.62a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="contacto-detail-text">
+            <strong>Teléfono</strong>
+            <span>+52 (55) 1234-5678 · +52 (55) 8765-4321</span>
+          </div>
+        </div>
+        <div class="contacto-detail">
+          <div class="contacto-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contacto-detail-text">
+            <strong>Correo electrónico</strong>
+            <span>contacto@hermesconstruccion.mx</span>
+          </div>
+        </div>
+        <div class="contacto-detail">
+          <div class="contacto-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contacto-detail-text">
+            <strong>Oficina principal</strong>
+            <span>Av. Insurgentes Sur 1234, Col. Del Valle, CDMX, 03100</span>
+          </div>
+        </div>
+        <div class="contacto-detail">
+          <div class="contacto-detail-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="contacto-detail-text">
+            <strong>Horario de atención</strong>
+            <span>Lunes a Viernes: 8:00 am – 7:00 pm CST</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="form-glass">
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:6px;">Solicitar cotización</h3>
+        <p style="font-size:0.8rem;color:var(--ink3);margin-bottom:24px;">Respuesta en menos de 24 horas hábiles.</p>
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-input" placeholder="Ing. Carlos López">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Empresa</label>
+              <input type="text" class="form-input" placeholder="Empresa S.A. de C.V.">
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:14px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Teléfono</label>
+              <input type="tel" class="form-input" placeholder="+52 (55) 0000-0000">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" class="form-input" placeholder="correo@empresa.mx">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:14px;">
+            <label class="form-label">Tipo de servicio</label>
+            <select class="form-select form-input">
+              <option value="" disabled selected>Seleccionar servicio...</option>
+              <option>Subestaciones Eléctricas</option>
+              <option>Plantas de Emergencia</option>
+              <option>Sistemas VRV / VRF</option>
+              <option>Calderas Industriales</option>
+              <option>Sistemas HVAC</option>
+              <option>Puesta a Tierra</option>
+              <option>Plantas de Tratamiento</option>
+              <option>Iluminación Industrial</option>
+              <option>Ventilación Industrial</option>
+              <option>Proyecto integral</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Descripción del proyecto</label>
+            <textarea class="form-textarea" placeholder="Describa brevemente el proyecto: ubicación, alcance estimado, fecha requerida..."></textarea>
+          </div>
+          <button type="submit" class="form-submit magnetic">
+            <span class="form-submit-inner">
+              Enviar solicitud
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer id="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="../propuesta3/img/innovadora hermes logo.png" alt="Hermes Construcción">
+        <span style="font-size:0.78rem;font-weight:600;color:var(--ink2);letter-spacing:0.06em;text-transform:uppercase;">Construcción</span>
+      </div>
+      <p class="footer-brand-desc">Ingeniería industrial de élite. Diseño, suministro e instalación de sistemas MEP para la industria mexicana.</p>
+      <div class="cert-badges">
+        <span class="cert-badge">ISO 9001</span>
+        <span class="cert-badge">ANCE</span>
+        <span class="cert-badge">IMSS</span>
+        <span class="cert-badge">STPS</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h6>Servicios</h6>
+      <ul>
+        <li><a href="#servicios">Subestaciones Eléctricas</a></li>
+        <li><a href="#servicios">Plantas de Emergencia</a></li>
+        <li><a href="#servicios">Sistemas VRV/VRF</a></li>
+        <li><a href="#servicios">Calderas Industriales</a></li>
+        <li><a href="#servicios">Sistemas HVAC</a></li>
+        <li><a href="#servicios">Ver todos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h6>Empresa</h6>
+      <ul>
+        <li><a href="#nosotros">Quiénes somos</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#metricas">Métricas</a></li>
+        <li><a href="#preguntas">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h6>Contacto</h6>
+      <ul>
+        <li><a href="tel:+525512345678">+52 (55) 1234-5678</a></li>
+        <li><a href="mailto:contacto@hermesconstruccion.mx">contacto@hermesconstruccion.mx</a></li>
+        <li><a href="#contacto">Av. Insurgentes Sur 1234<br>CDMX, 03100</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 <span>Hermes Construcción</span>. Todos los derechos reservados.</p>
+    <div class="footer-legal">
+      <a href="#">Aviso de privacidad</a>
+      <a href="#">Términos de uso</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ------- LOADER ------- */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      document.getElementById('loader').classList.add('hidden');
+    }, 1600);
+  });
+
+  /* ------- CURSOR ------- */
+  var dot = document.getElementById('cursor-dot');
+  var ring = document.getElementById('cursor-ring');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', function (e) {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a,button,.magnetic,.svc-item,.proj-card,.faq-trigger').forEach(function (el) {
+    el.addEventListener('mouseenter', function () {
+      ring.style.width = '52px';
+      ring.style.height = '52px';
+      ring.style.borderColor = 'rgba(56,190,248,0.8)';
+    });
+    el.addEventListener('mouseleave', function () {
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(56,190,248,0.55)';
+    });
+  });
+
+  /* ------- SCROLL PROGRESS ------- */
+  var progressBar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', function () {
+    var scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    progressBar.style.width = scrolled + '%';
+  }, { passive: true });
+
+  /* ------- NAV SOLIDIFY ------- */
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ------- HERO PARALLAX ------- */
+  var heroBg = document.getElementById('hero-bg-parallax');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY < window.innerHeight) {
+      heroBg.style.transform = 'translateY(' + (window.scrollY * 0.35) + 'px)';
+    }
+  }, { passive: true });
+
+  /* ------- REVEAL ON SCROLL ------- */
+  var revealEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(function (el) { observer.observe(el); });
+
+  /* ------- COUNT UP ------- */
+  var countEls = document.querySelectorAll('.metric-num[data-target]');
+  var countObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var target = parseInt(el.dataset.target);
+        var duration = 1800;
+        var start = performance.now();
+        function update(now) {
+          var elapsed = now - start;
+          var progress = Math.min(elapsed / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * target);
+          if (progress < 1) requestAnimationFrame(update);
+          else el.textContent = target;
+        }
+        requestAnimationFrame(update);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  countEls.forEach(function (el) { countObserver.observe(el); });
+
+  /* ------- SERVICE PANEL ------- */
+  var svcItems = document.querySelectorAll('.svc-item');
+  var svcImgs = document.querySelectorAll('.svc-img');
+  var svcCaption = document.getElementById('svc-caption');
+  var svcCapTag = document.getElementById('svc-cap-tag');
+  var svcCapTitle = document.getElementById('svc-cap-title');
+
+  function activateService(index, tag, caption) {
+    svcItems.forEach(function (it) { it.classList.remove('active'); });
+    svcImgs.forEach(function (img) { img.classList.remove('active'); });
+    svcItems[index].classList.add('active');
+    var targetImg = document.getElementById('svc-img-' + index);
+    if (targetImg) targetImg.classList.add('active');
+    svcCapTag.textContent = tag;
+    svcCapTitle.textContent = caption;
+    svcCaption.classList.add('visible');
+  }
+
+  svcItems.forEach(function (item, i) {
+    item.addEventListener('mouseenter', function () {
+      var img = item.dataset.img;
+      var tag = item.dataset.tag;
+      var cap = item.dataset.caption;
+      activateService(parseInt(img), tag, cap);
+    });
+  });
+
+  // Show caption for first item on load
+  setTimeout(function () { svcCaption.classList.add('visible'); }, 200);
+
+  /* ------- FAQ ACCORDION ------- */
+  document.querySelectorAll('.faq-trigger').forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var item = trigger.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function (fi) {
+        fi.classList.remove('open');
+        fi.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ------- MAGNETIC BUTTONS ------- */
+  document.querySelectorAll('.magnetic').forEach(function (el) {
+    el.addEventListener('mousemove', function (e) {
+      var rect = el.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var cy = rect.top + rect.height / 2;
+      var dx = (e.clientX - cx) * 0.25;
+      var dy = (e.clientY - cy) * 0.25;
+      el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+    });
+    el.addEventListener('mouseleave', function () {
+      el.style.transform = 'translate(0,0)';
+    });
+  });
+
+  /* ------- FORM SUBMIT ------- */
+  var form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('.form-submit-inner');
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ¡Enviado exitosamente!';
+      btn.style.color = '#4ade80';
+      setTimeout(function () {
+        btn.innerHTML = orig;
+        btn.style.color = '';
+        form.reset();
+      }, 3500);
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
