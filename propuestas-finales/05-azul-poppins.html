@@ -49,34 +49,11 @@ body {
   background:var(--bg); color:var(--ink);
   line-height:1.6; overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
-  cursor:none;
 }
-a { color:inherit; text-decoration:none; }
+a { color:inherit; text-decoration:none; cursor:pointer; }
 img { max-width:100%; display:block; }
 ul { list-style:none; }
-button { cursor:none; font-family:inherit; }
-
-/* ══════════════════════════════════════════════
-   CURSOR
-══════════════════════════════════════════════ */
-#cursor {
-  position:fixed; width:8px; height:8px;
-  background:var(--blue); border-radius:50%;
-  pointer-events:none; z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width .2s, height .2s;
-}
-#cursor-ring {
-  position:fixed; width:34px; height:34px;
-  border:1.5px solid rgba(27,95,204,0.4); border-radius:50%;
-  pointer-events:none; z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:width .3s, height .3s, border-color .3s;
-}
-body:has(a:hover) #cursor,
-body:has(button:hover) #cursor  { width:5px; height:5px; }
-body:has(a:hover) #cursor-ring,
-body:has(button:hover) #cursor-ring { width:52px; height:52px; border-color:rgba(27,95,204,.2); }
+button { cursor:pointer; font-family:inherit; }
 
 /* ══════════════════════════════════════════════
    SCROLL PROGRESS
@@ -382,7 +359,7 @@ section { position:relative; }
 .service-list-item {
   display:flex; align-items:center; justify-content:space-between;
   padding:20px 24px; border-bottom:1px solid var(--border);
-  cursor:none; transition:background .2s; position:relative;
+  cursor:pointer; transition:background .2s; position:relative;
 }
 .service-list-item::before {
   content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
@@ -444,7 +421,7 @@ section { position:relative; }
 #proyectos { padding:120px 0; background:var(--bg); }
 .projects-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:52px; }
 .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.project-card { border-radius:var(--radius); overflow:hidden; background:var(--surface); position:relative; cursor:none; }
+.project-card { border-radius:var(--radius); overflow:hidden; background:var(--surface); position:relative; }
 .project-card.tall { grid-row:span 2; }
 .project-card-img { width:100%; min-height:280px; overflow:hidden; }
 .project-card.tall .project-card-img { position:absolute; inset:0; min-height:unset; }
@@ -498,7 +475,7 @@ section { position:relative; }
   transition:border-color .2s, box-shadow .2s;
 }
 .faq-item.open { border-color:rgba(27,95,204,.35); box-shadow:0 2px 16px rgba(27,95,204,.08); }
-.faq-btn { width:100%; display:flex; align-items:center; gap:16px; padding:18px 20px; background:none; border:none; text-align:left; cursor:none; }
+.faq-btn { width:100%; display:flex; align-items:center; gap:16px; padding:18px 20px; background:none; border:none; text-align:left; cursor:pointer; }
 .faq-num { font-size:10px; font-weight:600; letter-spacing:.1em; color:var(--ink4); flex-shrink:0; width:22px; }
 .faq-item.open .faq-num { color:var(--blue); }
 .faq-q-text { font-size:13px; font-weight:500; color:var(--ink2); flex:1; transition:color .2s; }
@@ -615,8 +592,6 @@ footer { background:var(--ink); padding:72px 0 36px; }
 }
 @media(max-width:768px) {
   .nav-links { display:none; }
-  #cursor,#cursor-ring { display:none; }
-  body { cursor:auto; } button { cursor:pointer; }
   .values-strip { grid-template-columns:1fr 1fr; }
   .projects-grid { grid-template-columns:1fr; }
   .stats-grid { grid-template-columns:1fr 1fr; }
@@ -628,8 +603,6 @@ footer { background:var(--ink); padding:72px 0 36px; }
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
 <div id="progress-bar"></div>
 
 <!-- LOADER -->
@@ -919,10 +892,6 @@ footer { background:var(--ink); padding:72px 0 36px; }
 
 <script>
 window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hidden'),1500));
-const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function t(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(t);})();
 const bar=document.getElementById('progress-bar');
 window.addEventListener('scroll',()=>bar.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%');
 window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40));
