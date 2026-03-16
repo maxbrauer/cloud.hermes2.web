@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HERMES — Selector de Propuestas de Diseño</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --border: rgba(255,255,255,0.08);
+    --accent: #e8a020;
+    --accent2: #f0c060;
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --radius: 12px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 40px 48px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(180deg, rgba(232,160,32,0.06) 0%, transparent 100%);
+  }
+
+  .logo-mark {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 22px;
+    color: #000;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .header-text p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .badge-count {
+    margin-left: auto;
+    background: rgba(232,160,32,0.12);
+    border: 1px solid rgba(232,160,32,0.3);
+    color: var(--accent2);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ── Grid ── */
+  main {
+    padding: 40px 48px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
+    gap: 28px;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    border-color: rgba(232,160,32,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,160,32,0.15);
+  }
+
+  /* ── iframe wrapper ── */
+  .preview-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    background: #000;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .preview-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1440px;
+    height: 900px;
+    border: none;
+    transform-origin: top left;
+    pointer-events: none;
+  }
+
+  /* overlay to intercept click on the iframe area */
+  .preview-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0);
+    transition: background 0.2s;
+  }
+
+  .preview-wrap:hover .preview-overlay {
+    background: rgba(0,0,0,0.35);
+  }
+
+  .preview-overlay .open-btn {
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.2s, transform 0.2s;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  .preview-wrap:hover .preview-overlay .open-btn {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* ── Card footer ── */
+  .card-footer {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .proposal-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(232,160,32,0.1);
+    border: 1px solid rgba(232,160,32,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--accent2);
+    flex-shrink: 0;
+  }
+
+  .proposal-info {
+    flex: 1;
+  }
+
+  .proposal-info strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .proposal-info span {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .open-link {
+    text-decoration: none;
+    background: var(--accent);
+    color: #000;
+    padding: 7px 16px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.15s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .open-link:hover {
+    background: var(--accent2);
+    transform: scale(1.04);
+  }
+
+  /* ── Fullscreen modal ── */
+  #modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.92);
+    flex-direction: column;
+  }
+
+  #modal.active { display: flex; }
+
+  .modal-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: #0d0d14;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .modal-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .modal-url {
+    font-size: 12px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 6px;
+    flex: 1;
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .modal-close, .modal-ext {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .modal-close:hover, .modal-ext:hover { background: rgba(255,255,255,0.12); }
+
+  .modal-iframe-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .modal-iframe-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 700px) {
+    header { padding: 24px 20px 20px; }
+    main { padding: 24px 16px; }
+    .grid { grid-template-columns: 1fr; gap: 20px; }
+    .badge-count { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">H</div>
+  <div class="header-text">
+    <h1>INNOVADORA HERMES</h1>
+    <p>Selector de propuestas de diseño web</p>
+  </div>
+  <div class="badge-count">8 propuestas</div></div>
+</header>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<!-- Modal fullscreen -->
+<div id="modal">
+  <div class="modal-bar">
+    <span class="modal-title" id="modal-title">Propuesta</span>
+    <span class="modal-url" id="modal-url"></span>
+    <a id="modal-ext" class="modal-ext" href="#" target="_blank" title="Abrir en nueva pestaña">↗</a>
+    <button class="modal-close" id="modal-close" title="Cerrar">✕</button>
+  </div>
+  <div class="modal-iframe-wrap">
+    <iframe id="modal-iframe" src="" title="Vista completa"></iframe>
+  </div>
+</div>
+
+<script>
+  const proposals = [
+    { file: "index.html",       label: "Propuesta 0 — Original",        desc: "Dark industrial, cursor personalizado" },
+    { file: "index1.html",      label: "Propuesta 1 — Noir Dorado",      desc: "Dark premium, acentos dorados, partículas" },
+    { file: "index2.html",      label: "Propuesta 2 — Tech Angular",     desc: "Líneas angulares, gradientes neón" },
+    { file: "index3.html",      label: "Propuesta 3 — Industrial Bold",  desc: "Tipografía grande, textura metálica" },
+    { file: "index4.html",      label: "Propuesta 4 — Minimalista Pro",  desc: "Limpio, alta legibilidad, líneas finas" },
+    { file: "index5.html",      label: "Propuesta 5 — Glass & Blue",     desc: "Glassmorphism, azul cian, degradados" },
+    { file: "PROPUESTA3.html",  label: "PROPUESTA3 — Navy & Cyan",       desc: "Navy/Blue/Cyan, SVG circuit, full content" },
+    { file: "PROPUESTA4.html",  label: "PROPUESTA4 — Dark Modern 2026",  desc: "Bento grid, mesh gradients, cursor, ultra dark" },
+  ];
+
+  const grid = document.getElementById("grid");
+
+  function scaleIframe(iframe) {
+    const wrap = iframe.closest(".preview-wrap");
+    if (!wrap) return;
+    const W = wrap.clientWidth;
+    const scale = W / 1440;
+    iframe.style.transform = `scale(${scale})`;
+    wrap.style.paddingTop = (900 * scale) + "px";
+  }
+
+  proposals.forEach((p, i) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="preview-wrap" data-file="${p.file}" data-label="${p.label}">
+        <iframe src="${p.file}" title="${p.label}" loading="lazy" scrolling="no"></iframe>
+        <div class="preview-overlay">
+          <button class="open-btn">Vista completa</button>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="proposal-num">${i}</div>
+        <div class="proposal-info">
+          <strong>${p.label}</strong>
+          <span>${p.desc}</span>
+        </div>
+        <a class="open-link" href="${p.file}" target="_blank">Abrir ↗</a>
+      </div>
+    `;
+    grid.appendChild(card);
+
+    // scale iframe on load and resize
+    const iframe = card.querySelector("iframe");
+    iframe.addEventListener("load", () => scaleIframe(iframe));
+    scaleIframe(iframe);
+
+    // click preview → modal
+    card.querySelector(".preview-wrap").addEventListener("click", () => openModal(p.file, p.label));
+  });
+
+  // Resize observer para re-escalar
+  const ro = new ResizeObserver(entries => {
+    document.querySelectorAll(".preview-wrap iframe").forEach(iframe => scaleIframe(iframe));
+  });
+  ro.observe(document.body);
+
+  // Modal
+  const modal      = document.getElementById("modal");
+  const modalIframe = document.getElementById("modal-iframe");
+  const modalTitle  = document.getElementById("modal-title");
+  const modalUrl    = document.getElementById("modal-url");
+  const modalExt    = document.getElementById("modal-ext");
+
+  function openModal(file, label) {
+    modalIframe.src = file;
+    modalTitle.textContent = label;
+    modalUrl.textContent = file;
+    modalExt.href = file;
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  document.getElementById("modal-close").addEventListener("click", () => {
+    modal.classList.remove("active");
+    modalIframe.src = "";
+    document.body.style.overflow = "";
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") document.getElementById("modal-close").click();
+  });
+</script>
+</body>
+</html>

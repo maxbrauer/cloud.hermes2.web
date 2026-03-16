@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INNOVADORA HERMES | Ingeniería y Mantenimiento Industrial</title>
+<meta name="description" content="Tu mejor aliado en servicios de diseño, instalación, reparación y mantenimiento de sistemas eléctricos, industriales y de construcción.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --navy: #0A1628;
+    --blue: #1565C0;
+    --blue-light: #1E88E5;
+    --blue-bright: #42A5F5;
+    --cyan: #00B4D8;
+    --white: #FFFFFF;
+    --off-white: #F8FAFC;
+    --gray-50: #F0F4F8;
+    --gray-100: #E2E8F0;
+    --gray-200: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-700: #334155;
+    --gray-900: #0F172A;
+    --text: #1A1A2E;
+    --text-muted: #64748B;
+    --shadow-sm: 0 1px 3px rgba(10,22,40,0.06);
+    --shadow-md: 0 4px 20px rgba(10,22,40,0.08);
+    --shadow-lg: 0 12px 40px rgba(10,22,40,0.1);
+    --shadow-xl: 0 20px 60px rgba(10,22,40,0.12);
+    --shadow-blue: 0 8px 30px rgba(21,101,192,0.2);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--white); color: var(--text);
+    line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; } ul { list-style: none; } img { max-width: 100%; display: block; }
+::selection { background: var(--blue); color: var(--white); }
+
+/* ═══ SCROLL PROGRESS ═══ */
+.scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--cyan)); z-index: 10000; width: 0%; }
+
+/* ═══ LAYOUT ═══ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 120px 0; position: relative; }
+.section-label {
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--blue);
+    margin-bottom: 16px; display: inline-flex; align-items: center; gap: 10px;
+}
+.section-label::before { content: ''; width: 24px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--cyan)); border-radius: 1px; }
+.section-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.15; margin-bottom: 16px; color: var(--gray-900);
+    letter-spacing: -0.02em;
+}
+.section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 540px; line-height: 1.75; }
+
+/* ═══ REVEAL ═══ */
+.rv { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.rv.vis { opacity: 1; transform: translateY(0); }
+.rv-d1 { transition-delay: 0.08s; } .rv-d2 { transition-delay: 0.16s; }
+.rv-d3 { transition-delay: 0.24s; } .rv-d4 { transition-delay: 0.32s; }
+.rv-d5 { transition-delay: 0.4s; } .rv-d6 { transition-delay: 0.48s; }
+
+/* ═══ NAVBAR ═══ */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9000; padding: 16px 0;
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.navbar.scrolled {
+    padding: 10px 0; background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--gray-100); box-shadow: var(--shadow-sm);
+}
+.navbar.hidden { transform: translateY(-100%); }
+.navbar .container { display: flex; align-items: center; justify-content: space-between; }
+.nav-brand { display: flex; align-items: center; gap: 10px; }
+.nav-brand img { height: 34px; width: auto; border-radius: 6px; }
+.nav-brand-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; color: var(--navy); }
+.nav-brand-text span { color: var(--blue); }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--gray-500); padding: 8px 16px;
+    border-radius: var(--radius-xs); transition: color 0.3s, background 0.3s; position: relative;
+}
+.nav-links a:hover { color: var(--blue); background: rgba(21,101,192,0.06); }
+.nav-cta {
+    font-size: 14px !important; font-weight: 600 !important; color: var(--white) !important;
+    background: var(--blue) !important; padding: 10px 24px !important; border-radius: var(--radius-xs) !important;
+    transition: all 0.3s !important; box-shadow: var(--shadow-blue);
+}
+.nav-cta:hover { background: var(--blue-light) !important; transform: translateY(-1px); box-shadow: 0 12px 35px rgba(21,101,192,0.3) !important; }
+
+/* ═══ HAMBURGER ═══ */
+.nav-toggle {
+    display: none; flex-direction: column; gap: 6px; cursor: pointer;
+    padding: 10px; background: none; border: 1px solid var(--gray-100);
+    border-radius: var(--radius-xs); z-index: 9001; transition: border-color 0.3s;
+}
+.nav-toggle:hover { border-color: var(--blue); }
+.nav-toggle span { width: 22px; height: 2px; background: var(--gray-700); border-radius: 2px; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); display: block; }
+.nav-toggle.open { border-color: var(--blue); }
+.nav-toggle.open span { background: var(--blue); }
+.nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+/* ═══ MOBILE MENU ═══ */
+.mobile-menu {
+    position: fixed; inset: 0; background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(40px); z-index: 8999; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; gap: 4px;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s;
+}
+.mobile-menu.open { opacity: 1; pointer-events: auto; }
+.mobile-menu a {
+    font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700;
+    letter-spacing: 1px; color: var(--gray-400); padding: 12px 32px;
+    border-radius: var(--radius-sm); transition: all 0.3s;
+    opacity: 0; transform: translateY(20px);
+}
+.mobile-menu.open a { opacity: 1; transform: translateY(0); }
+.mobile-menu a:nth-child(1) { transition-delay: 0.08s; }
+.mobile-menu a:nth-child(2) { transition-delay: 0.12s; }
+.mobile-menu a:nth-child(3) { transition-delay: 0.16s; }
+.mobile-menu a:nth-child(4) { transition-delay: 0.20s; }
+.mobile-menu a:nth-child(5) { transition-delay: 0.24s; }
+.mobile-menu a:hover { color: var(--blue); background: rgba(21,101,192,0.05); }
+
+/* ═══ HERO ═══ */
+.hero {
+    min-height: 100vh; display: flex; align-items: center; position: relative;
+    background: linear-gradient(165deg, var(--white) 0%, var(--off-white) 40%, var(--gray-50) 100%);
+    overflow: hidden;
+}
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero-label {
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--blue);
+    margin-bottom: 24px; display: inline-flex; align-items: center; gap: 10px;
+    opacity: 0; animation: heroFade 0.8s ease 0.3s forwards;
+}
+.hero-label::before { content: ''; width: 24px; height: 2px; background: var(--blue); }
+.hero h1 {
+    font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+    line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 24px; color: var(--gray-900); font-weight: 800;
+}
+.hero h1 .line { display: block; overflow: hidden; }
+.hero h1 .line-inner { display: block; opacity: 0; transform: translateY(105%); }
+.hero h1 .line:nth-child(1) .line-inner { animation: heroReveal 1s cubic-bezier(0.16,1,0.3,1) 0.5s forwards; }
+.hero h1 .line:nth-child(2) .line-inner { animation: heroReveal 1s cubic-bezier(0.16,1,0.3,1) 0.65s forwards; }
+.hero h1 .line:nth-child(3) .line-inner {
+    animation: heroReveal 1s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+@keyframes heroReveal { to { opacity: 1; transform: translateY(0); } }
+@keyframes heroFade { to { opacity: 1; } }
+.hero-sub {
+    font-size: 1.1rem; color: var(--text-muted); max-width: 480px;
+    line-height: 1.8; margin-bottom: 40px; opacity: 0; animation: heroFade 1s ease 1.1s forwards;
+}
+.hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: heroFade 1s ease 1.3s forwards; }
+.hero-stats {
+    display: flex; gap: 40px; margin-top: 56px; padding-top: 32px;
+    border-top: 1px solid var(--gray-100);
+    opacity: 0; animation: heroFade 1s ease 1.5s forwards;
+}
+.hero-stat-number {
+    font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem;
+    font-weight: 700; color: var(--blue); line-height: 1;
+}
+.hero-stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+.hero-visual {
+    position: relative; opacity: 0; animation: heroFade 1.2s ease 0.6s forwards;
+}
+.hero-img-main {
+    border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-xl);
+    aspect-ratio: 4/5; position: relative; z-index: 2;
+}
+.hero-img-main img { width: 100%; height: 100%; object-fit: cover; }
+.hero-img-float {
+    position: absolute; width: 200px; border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow-lg); z-index: 3;
+    bottom: -20px; left: -40px; border: 4px solid var(--white);
+}
+.hero-img-float img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; }
+/* Decorative elements */
+.hero-deco-circle {
+    position: absolute; width: 280px; height: 280px; border-radius: 50%;
+    border: 1px solid var(--gray-100); top: -40px; right: -60px; z-index: 0;
+    opacity: 0; animation: heroFade 1s ease 1s forwards;
+}
+.hero-deco-circle::after {
+    content: ''; position: absolute; inset: 30px; border-radius: 50%;
+    border: 1px dashed var(--gray-200);
+    animation: decoSpin 30s linear infinite;
+}
+@keyframes decoSpin { to { transform: rotate(360deg); } }
+.hero-deco-dots {
+    position: absolute; top: 20%; right: -30px; z-index: 0;
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 10px;
+    opacity: 0; animation: heroFade 1s ease 1.2s forwards;
+}
+.hero-deco-dots span {
+    width: 4px; height: 4px; border-radius: 50%; background: var(--gray-200);
+}
+
+/* ═══ BUTTONS ═══ */
+.btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 14px 28px; border-radius: var(--radius-xs);
+    border: none; cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    position: relative;
+}
+.btn-primary {
+    background: var(--blue); color: var(--white); box-shadow: var(--shadow-blue);
+}
+.btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(21,101,192,0.25); }
+.btn-outline {
+    background: var(--white); color: var(--gray-700);
+    border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm);
+}
+.btn-outline:hover { border-color: var(--blue); color: var(--blue); box-shadow: var(--shadow-md); }
+.btn svg { flex-shrink: 0; }
+
+/* ═══ TRUST STRIP ═══ */
+.trust-strip {
+    padding: 40px 0; background: var(--white); border-bottom: 1px solid var(--gray-100);
+    overflow: hidden;
+}
+.trust-label {
+    text-align: center; font-size: 12px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 24px;
+}
+.trust-track { display: flex; animation: marqueeScroll 35s linear infinite; width: max-content; }
+.trust-track:hover { animation-play-state: paused; }
+.trust-item {
+    flex-shrink: 0; padding: 0 40px; display: flex; align-items: center; gap: 10px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600;
+    color: var(--gray-300); white-space: nowrap; transition: color 0.3s;
+}
+.trust-item:hover { color: var(--blue); }
+.trust-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
+.trust-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--gray-200); flex-shrink: 0; }
+@keyframes marqueeScroll { to { transform: translateX(-50%); } }
+
+/* ═══ ABOUT ═══ */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-text .desc { font-size: 1.05rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 24px; }
+.about-text .desc strong { color: var(--gray-900); font-weight: 600; }
+.about-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; margin: 40px 0; }
+.stat-card {
+    background: var(--off-white); border: 1px solid var(--gray-100); border-radius: var(--radius-sm);
+    padding: 20px 16px; text-align: center; transition: all 0.3s;
+}
+.stat-card:hover { border-color: var(--blue); background: rgba(21,101,192,0.03); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.stat-number {
+    font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+    font-weight: 700; color: var(--blue); line-height: 1;
+}
+.stat-label { font-size: 12px; color: var(--text-muted); margin-top: 6px; font-weight: 500; }
+.mv-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mv-card {
+    background: var(--off-white); border: 1px solid var(--gray-100);
+    border-radius: var(--radius-sm); padding: 24px; transition: all 0.3s;
+}
+.mv-card:hover { border-color: rgba(21,101,192,0.2); box-shadow: var(--shadow-md); }
+.mv-card h4 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 700;
+    color: var(--blue); margin-bottom: 8px;
+}
+.mv-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+.about-visual { position: relative; }
+.about-img-wrap {
+    border-radius: 20px; overflow: hidden; aspect-ratio: 3/4;
+    box-shadow: var(--shadow-lg); position: relative;
+}
+.about-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
+.about-img-wrap:hover img { transform: scale(1.05); }
+.about-badge {
+    position: absolute; bottom: 24px; left: 24px; background: var(--white);
+    border-radius: var(--radius-sm); padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-lg); animation: badgeFloat 4s ease-in-out infinite;
+}
+.about-badge-icon {
+    width: 40px; height: 40px; border-radius: var(--radius-xs);
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.about-badge-icon svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 2; }
+.about-badge-text { font-size: 0.75rem; color: var(--text-muted); }
+.about-badge-text strong { display: block; font-size: 1rem; color: var(--gray-900); font-family: 'Space Grotesk', sans-serif; }
+@keyframes badgeFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+/* Deco behind about image */
+.about-deco {
+    position: absolute; width: 100%; height: 100%; top: 20px; left: 20px;
+    border-radius: 20px; border: 2px dashed var(--gray-100); z-index: -1;
+}
+
+/* ═══ VALUES — BENTO GRID ═══ */
+.values { background: var(--off-white); }
+.values-header { text-align: center; margin-bottom: 56px; }
+.values-header .section-sub { margin: 0 auto; }
+.bento-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+}
+.bento-card {
+    background: var(--white); border: 1px solid var(--gray-100);
+    border-radius: var(--radius); padding: 28px 20px; text-align: center;
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden;
+}
+.bento-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan)); transform: scaleX(0);
+    transition: transform 0.4s; transform-origin: left;
+}
+.bento-card:hover::before { transform: scaleX(1); }
+.bento-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+.bento-icon {
+    width: 48px; height: 48px; margin: 0 auto 16px; display: flex; align-items: center;
+    justify-content: center; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, rgba(21,101,192,0.08), rgba(0,180,216,0.08));
+    transition: transform 0.4s;
+}
+.bento-card:hover .bento-icon { transform: scale(1.1) rotate(3deg); }
+.bento-icon svg { width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.bento-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+.bento-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ═══ SERVICES ═══ */
+.services-header { text-align: center; margin-bottom: 64px; }
+.services-header .section-sub { margin: 0 auto; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.svc-card {
+    background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius);
+    padding: 36px 28px; transition: all 0.4s; position: relative; overflow: hidden;
+}
+.svc-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(21,101,192,0.04), transparent 60%);
+    opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.svc-card:hover::after { opacity: 1; }
+.svc-card:hover { border-color: rgba(21,101,192,0.15); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.svc-icon {
+    width: 52px; height: 52px; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+    transition: transform 0.4s; box-shadow: 0 4px 16px rgba(21,101,192,0.15);
+}
+.svc-card:hover .svc-icon { transform: translateY(-3px) rotate(-2deg); }
+.svc-icon svg { width: 26px; height: 26px; stroke: var(--white); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.svc-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 20px; }
+.svc-card ul { display: flex; flex-direction: column; gap: 10px; }
+.svc-card li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+.svc-card li::before { content: ''; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); margin-top: 7px; opacity: 0.5; }
+
+/* ═══ PROCESS ═══ */
+.process { background: var(--navy); color: var(--white); overflow: hidden; }
+.process .section-label { color: var(--cyan); }
+.process .section-label::before { background: var(--cyan); }
+.process .section-title { color: var(--white); }
+.process .section-sub { color: rgba(255,255,255,0.5); }
+.process-header { text-align: center; margin-bottom: 80px; }
+.process-header .section-sub { margin: 0 auto; }
+.process-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.process-timeline::before {
+    content: ''; position: absolute; top: 44px; left: 12.5%; right: 12.5%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+}
+.process-step { text-align: center; position: relative; padding: 0 16px; }
+.process-num {
+    width: 88px; height: 88px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px; position: relative; z-index: 1;
+    transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.process-step:hover .process-num {
+    border-color: var(--cyan); background: rgba(0,180,216,0.08);
+    transform: scale(1.08); box-shadow: 0 0 40px rgba(0,180,216,0.12);
+}
+.process-num span { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--cyan); }
+.process-num::after {
+    content: ''; position: absolute; inset: -8px; border-radius: 50%;
+    border: 1px dashed rgba(0,180,216,0.15); animation: processSpin 15s linear infinite;
+}
+@keyframes processSpin { to { transform: rotate(360deg); } }
+.process-step h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+.process-step p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+/* ═══ WHY CHOOSE US ═══ */
+.why { background: var(--off-white); }
+.why-header { text-align: center; margin-bottom: 64px; }
+.why-header .section-sub { margin: 0 auto; }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.why-card {
+    background: var(--white); border: 1px solid var(--gray-100);
+    border-radius: var(--radius); padding: 32px 24px;
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1); position: relative;
+}
+.why-card:hover { border-color: transparent; transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.why-num {
+    font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 800;
+    color: var(--gray-50); position: absolute; top: 16px; right: 20px; line-height: 1;
+    transition: color 0.4s; pointer-events: none;
+}
+.why-card:hover .why-num { color: rgba(21,101,192,0.06); }
+.why-icon {
+    width: 44px; height: 44px; border-radius: var(--radius-xs);
+    background: linear-gradient(135deg, rgba(21,101,192,0.08), rgba(0,180,216,0.08));
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+}
+.why-icon svg { width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.why-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+.why-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+
+/* ═══ PROJECTS ═══ */
+.projects { overflow: hidden; }
+.projects-header { margin-bottom: 48px; }
+.projects-carousel { position: relative; cursor: grab; user-select: none; }
+.projects-carousel.dragging { cursor: grabbing; }
+.projects-track { display: flex; gap: 20px; will-change: transform; }
+.proj-card {
+    flex: 0 0 340px; border-radius: var(--radius); overflow: hidden;
+    background: var(--white); border: 1px solid var(--gray-100);
+    transition: all 0.3s; box-shadow: var(--shadow-sm);
+}
+.proj-card:hover { border-color: transparent; transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.proj-card-img { aspect-ratio: 16/11; overflow: hidden; background: var(--gray-50); }
+.proj-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.proj-card:hover .proj-card-img img { transform: scale(1.06); }
+.proj-card-body { padding: 18px 20px; }
+.proj-card-body h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--gray-900); line-height: 1.4; margin-bottom: 6px; }
+.proj-card-body .proj-loc { font-size: 0.78rem; color: var(--blue); font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.proj-card-body .proj-loc svg { width: 12px; height: 12px; stroke: var(--blue); fill: none; stroke-width: 2; }
+.projects-hint { text-align: center; margin-top: 28px; font-size: 0.8rem; color: var(--gray-400); }
+
+/* ═══ COVERAGE ═══ */
+.coverage { background: var(--off-white); }
+.coverage-header { text-align: center; margin-bottom: 64px; }
+.coverage-header .section-sub { margin: 0 auto; }
+.coverage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.cov-item {
+    background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-sm);
+    padding: 16px 18px; display: flex; align-items: center; gap: 12px; transition: all 0.3s;
+}
+.cov-item:hover { border-color: var(--blue); background: rgba(21,101,192,0.02); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.cov-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; position: relative; }
+.cov-dot::after {
+    content: ''; position: absolute; inset: -3px; border-radius: 50%;
+    border: 1px solid var(--blue); opacity: 0; animation: covPulse 2s ease-in-out infinite;
+}
+.cov-item:hover .cov-dot::after { opacity: 1; }
+@keyframes covPulse { 0%,100% { transform: scale(1); opacity: 0; } 50% { transform: scale(1.8); opacity: 0.4; } }
+.cov-item span { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+.cov-item:hover span { color: var(--gray-900); }
+
+/* ═══ TESTIMONIALS ═══ */
+.testimonials { overflow: hidden; }
+.testimonials-header { text-align: center; margin-bottom: 64px; }
+.testimonials-header .section-sub { margin: 0 auto; }
+.test-carousel { position: relative; max-width: 680px; margin: 0 auto; min-height: 220px; }
+.test-slide {
+    position: absolute; inset: 0; opacity: 0; transform: translateX(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease; text-align: center;
+}
+.test-slide.active { opacity: 1; transform: translateX(0); }
+.test-quote {
+    font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem;
+    font-weight: 500; line-height: 1.8; color: var(--gray-700); margin-bottom: 28px;
+    position: relative; padding: 0 20px;
+}
+.test-quote::before {
+    content: '"'; font-family: 'Space Grotesk', sans-serif; font-size: 5rem;
+    font-weight: 800; color: var(--gray-100); position: absolute; top: -24px; left: -6px; line-height: 1;
+}
+.test-author { display: flex; align-items: center; gap: 14px; justify-content: center; }
+.test-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white);
+}
+.test-info { text-align: left; }
+.test-info strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--gray-900); }
+.test-info span { font-size: 0.78rem; color: var(--blue); }
+.test-dots { display: flex; gap: 8px; justify-content: center; margin-top: 40px; }
+.test-dot {
+    width: 32px; height: 3px; border-radius: 2px;
+    background: var(--gray-200); cursor: pointer; transition: all 0.3s;
+}
+.test-dot.active { background: var(--blue); width: 48px; }
+
+/* ═══ CTA BANNER ═══ */
+.cta-banner {
+    padding: 100px 0; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--navy) 0%, #0D2137 50%, #0A1A30 100%);
+    color: var(--white);
+}
+.cta-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(0,180,216,0.08) 0%, transparent 60%);
+}
+.cta-banner .container { position: relative; z-index: 1; text-align: center; }
+.cta-banner h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 18px;
+}
+.cta-banner h2 span {
+    background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.cta-banner p { font-size: 1.05rem; color: rgba(255,255,255,0.5); max-width: 560px; margin: 0 auto 36px; line-height: 1.75; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.cta-ring {
+    position: absolute; top: 50%; right: 10%; width: 300px; height: 300px;
+    border: 1px solid rgba(0,180,216,0.06); border-radius: 50%;
+    transform: translate(50%,-50%); pointer-events: none;
+    animation: ctaSpin 30s linear infinite;
+}
+.cta-ring:nth-child(2) { width: 200px; height: 200px; right: 8%; border-style: dashed; animation-direction: reverse; animation-duration: 20s; }
+@keyframes ctaSpin { to { transform: translate(50%,-50%) rotate(360deg); } }
+
+/* ═══ CONTACT ═══ */
+.contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: start; }
+.contact-info .section-sub { margin-bottom: 36px; }
+.contact-detail { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.contact-detail-icon {
+    width: 44px; height: 44px; border-radius: var(--radius-xs);
+    background: var(--off-white); border: 1px solid var(--gray-100);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: all 0.3s;
+}
+.contact-detail:hover .contact-detail-icon { border-color: var(--blue); background: rgba(21,101,192,0.05); }
+.contact-detail-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.cd-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; }
+.cd-value { font-size: 0.95rem; font-weight: 600; color: var(--gray-900); }
+.wa-btn {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 24px;
+    background: #25D366; color: #fff; font-weight: 600; font-size: 14px;
+    padding: 14px 28px; border-radius: var(--radius-xs); transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.2);
+}
+.wa-btn:hover { background: #22c55e; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,211,102,0.25); }
+.wa-btn svg { width: 20px; height: 20px; fill: currentColor; }
+.contact-form {
+    background: var(--white); border: 1px solid var(--gray-100);
+    border-radius: var(--radius); padding: 36px; box-shadow: var(--shadow-md);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--gray-700); letter-spacing: 0.3px; }
+.form-group label .req { color: var(--blue); }
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xs); font-size: 14px; color: var(--gray-900);
+    background: var(--white); transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none; font-family: inherit;
+}
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--gray-400); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--blue); box-shadow: 0 0 0 3px rgba(21,101,192,0.08);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select {
+    appearance: none; cursor: pointer; padding-right: 36px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748B' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center;
+}
+.form-group select option { background: var(--white); color: var(--gray-900); }
+.btn-submit { width: 100%; padding: 14px; font-size: 14px; justify-content: center; }
+
+/* ═══ FOOTER ═══ */
+.footer {
+    background: var(--navy); color: rgba(255,255,255,0.7); padding: 60px 0 28px;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: var(--white); margin-bottom: 12px; }
+.footer-brand span { color: var(--cyan); }
+.footer-tagline { font-size: 0.88rem; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 340px; }
+.footer-col h5 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; color: var(--white);
+}
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul a { font-size: 0.88rem; color: rgba(255,255,255,0.4); transition: color 0.3s; }
+.footer-col ul a:hover { color: var(--cyan); }
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem; color: rgba(255,255,255,0.3);
+}
+
+/* Back to top */
+.back-top {
+    position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px;
+    border-radius: var(--radius-xs); background: var(--white); border: 1px solid var(--gray-200);
+    display: flex; align-items: center; justify-content: center; z-index: 100;
+    opacity: 0; transform: translateY(20px); transition: all 0.4s; cursor: pointer;
+    box-shadow: var(--shadow-md);
+}
+.back-top.show { opacity: 1; transform: translateY(0); }
+.back-top:hover { background: var(--blue); border-color: var(--blue); }
+.back-top svg { width: 18px; height: 18px; stroke: var(--gray-700); fill: none; stroke-width: 2; stroke-linecap: round; }
+.back-top:hover svg { stroke: var(--white); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-visual { max-width: 500px; margin: 0 auto; }
+    .hero-stats { gap: 24px; }
+    .bento-grid { grid-template-columns: repeat(3, 1fr); }
+    .services-grid, .why-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { max-width: 480px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .process-timeline { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .process-timeline::before { display: none; }
+    .about-stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .section { padding: 80px 0; }
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .hero h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+    .hero-img-float { display: none; }
+    .hero-deco-circle, .hero-deco-dots { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .mv-cards { grid-template-columns: 1fr; }
+    .bento-grid { grid-template-columns: 1fr 1fr; }
+    .proj-card { flex: 0 0 280px; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    .coverage-grid { grid-template-columns: repeat(2, 1fr); }
+    .cta-ring { display: none; }
+}
+@media (max-width: 480px) {
+    .container { padding: 0 18px; }
+    .hero h1 { font-size: clamp(2rem, 12vw, 3rem); }
+    .hero-buttons { flex-direction: column; }
+    .hero-buttons .btn { width: 100%; justify-content: center; }
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .bento-grid { grid-template-columns: 1fr; }
+    .contact-form { padding: 24px 18px; }
+    .process-timeline { grid-template-columns: 1fr; }
+    .coverage-grid { grid-template-columns: 1fr; }
+    .cta-btns { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio">Inicio</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#contacto">Contacto</a>
+</div>
+
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#inicio" class="nav-brand">
+            <img src="images/logo.jpeg" alt="Innovadora Hermes">
+            <div class="nav-brand-text"><span>H</span>ERMES</div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#contacto" class="nav-cta">Contáctanos</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="inicio">
+    <div class="container">
+        <div class="hero-grid">
+            <div>
+                <div class="hero-label"><span>Ingeniería y Mantenimiento Industrial</span></div>
+                <h1>
+                    <span class="line"><span class="line-inner">Tu Mejor</span></span>
+                    <span class="line"><span class="line-inner">Aliado</span></span>
+                    <span class="line"><span class="line-inner">Industrial</span></span>
+                </h1>
+                <p class="hero-sub">Diseño, instalación, reparación y mantenimiento de sistemas eléctricos, industriales y de construcción con más de 40 profesionales a nivel nacional.</p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn btn-primary">Ver Servicios <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+                    <a href="#contacto" class="btn btn-outline">Solicitar Cotización</a>
+                </div>
+                <div class="hero-stats">
+                    <div><div class="hero-stat-number" data-target="40" data-suffix="+">0</div><div class="hero-stat-label">Profesionales</div></div>
+                    <div><div class="hero-stat-number" data-target="5" data-suffix="+">0</div><div class="hero-stat-label">Años de Experiencia</div></div>
+                    <div><div class="hero-stat-number" data-target="100" data-suffix="+">0</div><div class="hero-stat-label">Proyectos</div></div>
+                    <div><div class="hero-stat-number" data-target="15" data-suffix="">0</div><div class="hero-stat-label">Estados</div></div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-deco-circle"></div>
+                <div class="hero-deco-dots">
+                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>
+                </div>
+                <div class="hero-img-main">
+                    <img src="images/PHOTO-2026-01-30-15-16-56.jpg" alt="Ingeniería industrial">
+                </div>
+                <div class="hero-img-float">
+                    <img src="images/PHOTO-2026-01-30-15-21-03.jpg" alt="Equipo de trabajo">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ TRUST STRIP ═══ -->
+<div class="trust-strip">
+    <div class="trust-label">Sectores que atendemos</div>
+    <div class="trust-track" id="trustTrack">
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>Sector Eléctrico</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke-linecap="round"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.18V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1.08H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.77 1.05 1.4 1.18H21a2 2 0 1 1 0 4h-.09" stroke-linecap="round" stroke-linejoin="round"/></svg>Manufactura</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>Edificios Comerciales</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/></svg>Sector Público</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sector Salud</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M2 20h20M5 20V8l7-5 7 5v12" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 20v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/></svg>Construcción</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 21h8M12 17v4" stroke-linecap="round" stroke-linejoin="round"/></svg>Data Centers</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>Aeropuertos</div>
+        <div class="trust-sep"></div>
+    </div>
+</div>
+
+<!-- ═══ NOSOTROS ═══ -->
+<section class="section" id="nosotros">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <div class="section-label rv">Quiénes Somos</div>
+                <h2 class="section-title rv rv-d1">Más de 40 profesionales<br>a su servicio</h2>
+                <p class="desc rv rv-d2">Fundada en 2020, <strong>INNOVADORA HERMES</strong> es una empresa especializada en el diseño, instalación, reparación y mantenimiento de equipos industriales, así como en proyectos de construcción, mantenimiento y puesta en marcha.</p>
+                <p class="desc rv rv-d3">Atendemos las necesidades de clientes privados y del sector público en todo el territorio nacional, garantizando resultados sobresalientes con los más altos estándares de calidad y seguridad.</p>
+                <div class="about-stats rv rv-d3">
+                    <div class="stat-card"><div class="stat-number" data-target="40" data-suffix="+">0</div><div class="stat-label">Técnicos e Ingenieros</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="5" data-suffix="+">0</div><div class="stat-label">Años</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="100" data-suffix="+">0</div><div class="stat-label">Proyectos</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="15" data-suffix="">0</div><div class="stat-label">Estados</div></div>
+                </div>
+                <div class="mv-cards rv rv-d4">
+                    <div class="mv-card"><h4>Misión</h4><p>Brindar soluciones eficaces, eficientes y confiables en servicios de sistemas eléctricos, industriales y de construcción, siempre en tiempo y forma.</p></div>
+                    <div class="mv-card"><h4>Visión</h4><p>Ser la opción preferente en la prestación de servicios de reparación y mantenimiento eléctrico, industrial y de construcción en México.</p></div>
+                </div>
+            </div>
+            <div class="about-visual rv rv-d2">
+                <div class="about-deco"></div>
+                <div class="about-img-wrap">
+                    <img src="images/PHOTO-2026-01-30-15-21-03.jpg" alt="Equipo INNOVADORA HERMES">
+                    <div class="about-badge">
+                        <div class="about-badge-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22 4 12 14.01 9 11.01" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <div class="about-badge-text"><strong>100%</strong>Compromiso con la calidad</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ VALORES ═══ -->
+<section class="section values" id="valores">
+    <div class="container">
+        <div class="values-header">
+            <div class="section-label rv" style="justify-content:center">Nuestros Valores</div>
+            <h2 class="section-title rv rv-d1">Lo que nos define</h2>
+            <p class="section-sub rv rv-d2">Principios que guían cada proyecto y cada relación con nuestros clientes.</p>
+        </div>
+        <div class="bento-grid">
+            <div class="bento-card rv rv-d1"><div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Confianza</h4><p>Certeza en nuestro equipo, nuestro trabajo y nuestros resultados.</p></div>
+            <div class="bento-card rv rv-d2"><div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><h4>Calidad</h4><p>Compromiso con los más altos estándares del mercado.</p></div>
+            <div class="bento-card rv rv-d3"><div class="bento-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div><h4>Seguridad Primero</h4><p>Política de 0 accidentes y bienestar del equipo.</p></div>
+            <div class="bento-card rv rv-d4"><div class="bento-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h4>Profesionalismo</h4><p>Excelencia mediante métodos innovadores.</p></div>
+            <div class="bento-card rv rv-d5"><div class="bento-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Excelencia</h4><p>El cliente como eje de todas nuestras decisiones.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ SERVICIOS ═══ -->
+<section class="section" id="servicios">
+    <div class="container">
+        <div class="services-header">
+            <div class="section-label rv" style="justify-content:center">Qué Hacemos</div>
+            <h2 class="section-title rv rv-d1">Servicios integrales<br>para su industria</h2>
+            <p class="section-sub rv rv-d2">Más de 40 técnicos e ingenieros con experiencia en proyectos diversos y complejos.</p>
+        </div>
+        <div class="services-grid">
+            <div class="svc-card rv rv-d1">
+                <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                <h3>Servicios Eléctricos</h3>
+                <ul><li>Mantenimiento de redes eléctricas</li><li>Mantenimiento de plantas de emergencia</li><li>Instalación de subestaciones eléctricas</li><li>Mantenimiento de subestaciones eléctricas</li><li>Redes eléctricas de alta, media y baja tensión</li><li>Mantenimiento de tableros de transferencia</li><li>Instalación de equipo de puesta a tierra</li><li>Alumbrado público e iluminación</li></ul>
+            </div>
+            <div class="svc-card rv rv-d2">
+                <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+                <h3>Servicios Industriales</h3>
+                <ul><li>Equipos de climatización y refrigeración</li><li>Mantenimiento de equipos de línea blanca</li><li>Servicios de soldadura y metalmecánica</li><li>Plantas tratadoras de agua y humedales</li><li>Mantenimiento integral de edificios</li></ul>
+            </div>
+            <div class="svc-card rv rv-d3">
+                <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                <h3>Otros Servicios</h3>
+                <ul><li>Suministros eléctricos e industriales</li><li>Equipo de HVAC y material eléctrico</li><li>Renta de maquinaria y plantas de emergencia</li><li>Proveedor de gases medicinales</li><li>Obra civil</li><li>Capacitaciones y certificaciones</li></ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ PROCESO ═══ -->
+<section class="section process">
+    <div class="container">
+        <div class="process-header">
+            <div class="section-label rv" style="justify-content:center">Cómo Trabajamos</div>
+            <h2 class="section-title rv rv-d1">Nuestro proceso<br>de trabajo</h2>
+            <p class="section-sub rv rv-d2">Metodología probada para garantizar resultados excepcionales en cada proyecto.</p>
+        </div>
+        <div class="process-timeline">
+            <div class="process-step rv rv-d1">
+                <div class="process-num"><span>01</span></div>
+                <h4>Diagnóstico</h4>
+                <p>Evaluación técnica detallada de las necesidades y condiciones del proyecto para definir el alcance óptimo.</p>
+            </div>
+            <div class="process-step rv rv-d2">
+                <div class="process-num"><span>02</span></div>
+                <h4>Propuesta Técnica</h4>
+                <p>Elaboración de propuesta integral con cronograma, recursos necesarios y presupuesto transparente.</p>
+            </div>
+            <div class="process-step rv rv-d3">
+                <div class="process-num"><span>03</span></div>
+                <h4>Ejecución</h4>
+                <p>Implementación con personal certificado, supervisión continua y control de calidad en cada etapa.</p>
+            </div>
+            <div class="process-step rv rv-d4">
+                <div class="process-num"><span>04</span></div>
+                <h4>Entrega y Soporte</h4>
+                <p>Entrega formal con documentación completa, capacitación al cliente y soporte post-servicio.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ POR QUÉ ELEGIRNOS ═══ -->
+<section class="section why">
+    <div class="container">
+        <div class="why-header">
+            <div class="section-label rv" style="justify-content:center">Ventajas Competitivas</div>
+            <h2 class="section-title rv rv-d1">¿Por qué elegir<br>Innovadora Hermes?</h2>
+            <p class="section-sub rv rv-d2">Lo que nos diferencia en el mercado de servicios industriales.</p>
+        </div>
+        <div class="why-grid" style="margin-top:16px">
+            <div class="why-card rv rv-d1">
+                <div class="why-num">01</div>
+                <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                <h4>Respuesta Inmediata 24/7</h4>
+                <p>Atención a emergencias en tiempo real con personal de guardia permanente para minimizar tiempos de inactividad.</p>
+            </div>
+            <div class="why-card rv rv-d2">
+                <div class="why-num">02</div>
+                <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <h4>Personal Certificado</h4>
+                <p>Técnicos e ingenieros con certificaciones vigentes en normas NOM, NFPA y estándares internacionales de seguridad.</p>
+            </div>
+            <div class="why-card rv rv-d3">
+                <div class="why-num">03</div>
+                <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <h4>Cobertura Nacional</h4>
+                <p>Presencia en más de 15 estados de la República Mexicana con capacidad de movilización rápida.</p>
+            </div>
+            <div class="why-card rv rv-d4">
+                <div class="why-num">04</div>
+                <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+                <h4>Documentación Completa</h4>
+                <p>Reportes técnicos detallados, bitácoras de mantenimiento y certificados de pruebas en cada servicio.</p>
+            </div>
+            <div class="why-card rv rv-d5">
+                <div class="why-num">05</div>
+                <div class="why-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                <h4>Precios Competitivos</h4>
+                <p>Presupuestos transparentes y competitivos, adaptados a las necesidades y alcance de cada proyecto.</p>
+            </div>
+            <div class="why-card rv rv-d6">
+                <div class="why-num">06</div>
+                <div class="why-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                <h4>Mantenimiento Preventivo</h4>
+                <p>Planes de mantenimiento programado que previenen fallas costosas y extienden la vida útil de sus equipos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ PROYECTOS ═══ -->
+<section class="section projects" id="proyectos">
+    <div class="container">
+        <div class="projects-header">
+            <div class="section-label rv">Nuestros Proyectos</div>
+            <h2 class="section-title rv rv-d1">Proyectos representativos</h2>
+            <p class="section-sub rv rv-d2">Experiencia comprobada en proyectos diversos para el sector público y privado.</p>
+        </div>
+    </div>
+    <div class="projects-carousel rv rv-d3" id="projectsCarousel">
+        <div class="projects-track" id="projectsTrack" style="padding-left: max(24px, calc((100vw - 1200px)/2 + 24px));">
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-38-50.jpg" alt="Proyecto 1" loading="lazy"></div><div class="proj-card-body"><h4>Mantenimiento y pruebas a transformadores</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Aeropuerto de Campeche</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-39-09.jpg" alt="Proyecto 2" loading="lazy"></div><div class="proj-card-body"><h4>Instalación de sistema hidráulico y bomba de calor</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ciudad de México, CDMX</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-39-39.jpg" alt="Proyecto 3" loading="lazy"></div><div class="proj-card-body"><h4>Mantenimiento preventivo a plantas de emergencia</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Estado de México</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-40-06.jpg" alt="Proyecto 4" loading="lazy"></div><div class="proj-card-body"><h4>Mantenimiento correctivo a subestación eléctrica</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Querétaro, QRO</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-44-36.jpg" alt="Proyecto 5" loading="lazy"></div><div class="proj-card-body"><h4>Mantenimiento a sopladores de planta tratadora</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Puebla, PUE</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-46-10.jpg" alt="Proyecto 6" loading="lazy"></div><div class="proj-card-body"><h4>Red de media tensión e instalación de transformador</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Toluca, Edo. Méx.</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-49-05.jpg" alt="Proyecto 7" loading="lazy"></div><div class="proj-card-body"><h4>Reparación de sistema contra incendio</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ciudad de México, CDMX</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-53-08.jpg" alt="Proyecto 8" loading="lazy"></div><div class="proj-card-body"><h4>Mantenimiento correctivo a caldera generadora de vapor</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Monterrey, NL</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-53-32.jpg" alt="Proyecto 9" loading="lazy"></div><div class="proj-card-body"><h4>Mantenimiento a sistema de respaldo UPS</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Guadalajara, JAL</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-54-22.jpg" alt="Proyecto 10" loading="lazy"></div><div class="proj-card-body"><h4>Mantenimiento y programación a sistema VRV Daikin</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ciudad de México, CDMX</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-54-42.jpg" alt="Proyecto 11" loading="lazy"></div><div class="proj-card-body"><h4>Mantenimiento correctivo a sistemas VRF marca LG</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>León, GTO</span></div></div>
+            <div class="proj-card"><div class="proj-card-img"><img src="images/PHOTO-2026-01-30-15-55-23.jpg" alt="Proyecto 12" loading="lazy"></div><div class="proj-card-body"><h4>Curso de calidad de energía y analizadores de red</h4><span class="proj-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ciudad de México, CDMX</span></div></div>
+        </div>
+    </div>
+    <p class="projects-hint rv">← Arrastra para explorar →</p>
+</section>
+
+<!-- ═══ COBERTURA ═══ -->
+<section class="section coverage">
+    <div class="container">
+        <div class="coverage-header">
+            <div class="section-label rv" style="justify-content:center">Presencia Nacional</div>
+            <h2 class="section-title rv rv-d1">Cobertura en toda<br>la República Mexicana</h2>
+            <p class="section-sub rv rv-d2">Con capacidad de movilización a cualquier punto del país.</p>
+        </div>
+        <div class="coverage-grid">
+            <div class="cov-item rv rv-d1"><div class="cov-dot"></div><span>Ciudad de México</span></div>
+            <div class="cov-item rv rv-d1"><div class="cov-dot"></div><span>Estado de México</span></div>
+            <div class="cov-item rv rv-d2"><div class="cov-dot"></div><span>Querétaro</span></div>
+            <div class="cov-item rv rv-d2"><div class="cov-dot"></div><span>Puebla</span></div>
+            <div class="cov-item rv rv-d3"><div class="cov-dot"></div><span>Nuevo León</span></div>
+            <div class="cov-item rv rv-d3"><div class="cov-dot"></div><span>Jalisco</span></div>
+            <div class="cov-item rv rv-d4"><div class="cov-dot"></div><span>Campeche</span></div>
+            <div class="cov-item rv rv-d4"><div class="cov-dot"></div><span>Guanajuato</span></div>
+            <div class="cov-item rv rv-d5"><div class="cov-dot"></div><span>Veracruz</span></div>
+            <div class="cov-item rv rv-d5"><div class="cov-dot"></div><span>Tabasco</span></div>
+            <div class="cov-item rv rv-d5"><div class="cov-dot"></div><span>Hidalgo</span></div>
+            <div class="cov-item rv rv-d6"><div class="cov-dot"></div><span>Morelos</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ TESTIMONIOS ═══ -->
+<section class="section testimonials">
+    <div class="container">
+        <div class="testimonials-header">
+            <div class="section-label rv" style="justify-content:center">Testimonios</div>
+            <h2 class="section-title rv rv-d1">Lo que dicen<br>nuestros clientes</h2>
+            <p class="section-sub rv rv-d2">La satisfacción de nuestros clientes es nuestra mejor carta de presentación.</p>
+        </div>
+        <div class="test-carousel rv rv-d3" id="testCarousel">
+            <div class="test-slide active">
+                <div class="test-quote">El equipo de Innovadora Hermes realizó el mantenimiento de nuestras subestaciones eléctricas con una calidad excepcional. Su profesionalismo y puntualidad superaron nuestras expectativas.</div>
+                <div class="test-author">
+                    <div class="test-avatar">JR</div>
+                    <div class="test-info"><strong>José Ramírez</strong><span>Director de Operaciones · Sector Aeroportuario</span></div>
+                </div>
+            </div>
+            <div class="test-slide">
+                <div class="test-quote">Confiamos en Hermes para nuestros sistemas de climatización y refrigeración industrial. Su capacidad de respuesta ante emergencias es incomparable, disponibles 24/7.</div>
+                <div class="test-author">
+                    <div class="test-avatar">ML</div>
+                    <div class="test-info"><strong>María López</strong><span>Gerente de Mantenimiento · Manufactura</span></div>
+                </div>
+            </div>
+            <div class="test-slide">
+                <div class="test-quote">Hemos trabajado con Innovadora Hermes en múltiples proyectos de obra civil e instalaciones eléctricas. La documentación que entregan y su seguimiento post-servicio es de primer nivel.</div>
+                <div class="test-author">
+                    <div class="test-avatar">CF</div>
+                    <div class="test-info"><strong>Carlos Fernández</strong><span>Coordinador de Proyectos · Sector Público</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="test-dots" id="testDots">
+            <div class="test-dot active" data-idx="0"></div>
+            <div class="test-dot" data-idx="1"></div>
+            <div class="test-dot" data-idx="2"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CTA BANNER ═══ -->
+<section class="cta-banner">
+    <div class="cta-ring"></div><div class="cta-ring"></div>
+    <div class="container">
+        <h2 class="rv">¿Listo para su próximo <span>proyecto</span>?</h2>
+        <p class="rv rv-d1">Solicite una evaluación sin compromiso. Nuestro equipo de ingenieros está listo para diseñar la solución perfecta para su empresa.</p>
+        <div class="cta-btns rv rv-d2">
+            <a href="#contacto" class="btn btn-primary" style="background: var(--white); color: var(--navy); box-shadow: var(--shadow-lg);">Solicitar Cotización <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+            <a href="mailto:info@innovadorahermes.mx" class="btn btn-outline" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8);">Escribir Email</a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CONTACTO ═══ -->
+<section class="section" id="contacto">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="section-label rv">Contacto</div>
+                <h2 class="section-title rv rv-d1">Hablemos de<br>su proyecto</h2>
+                <p class="section-sub rv rv-d2">Estamos listos para ser su aliado en soluciones de ingeniería y mantenimiento industrial.</p>
+                <div style="margin-top:36px">
+                    <div class="contact-detail rv rv-d3"><div class="contact-detail-icon"><svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div><span class="cd-label">Email</span><span class="cd-value">info@innovadorahermes.mx</span></div></div>
+                    <div class="contact-detail rv rv-d4"><div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div><div><span class="cd-label">Ubicación</span><span class="cd-value">Ciudad de México, CDMX</span></div></div>
+                    <div class="contact-detail rv rv-d5"><div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><span class="cd-label">Teléfono</span><span class="cd-value">+52 (55) 1234-5678</span></div></div>
+                </div>
+                <a href="#" class="wa-btn rv rv-d5">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.528 5.862L.06 23.884l6.157-1.452A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.8 9.8 0 0 1-5.158-1.46l-.37-.22-3.652.862.897-3.56-.24-.382A9.82 9.82 0 1 1 12 21.82z"/></svg>
+                    Escribir por WhatsApp
+                </a>
+            </div>
+            <div class="contact-form rv rv-d2" id="contactFormWrapper">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group"><label>Nombre <span class="req">*</span></label><input type="text" name="nombre" required placeholder="Su nombre completo"></div>
+                        <div class="form-group"><label>Email <span class="req">*</span></label><input type="email" name="email" required placeholder="correo@ejemplo.com"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+52 55 1234 5678"></div>
+                        <div class="form-group"><label>Puesto</label><input type="text" name="puesto" placeholder="Su cargo"></div>
+                    </div>
+                    <div class="form-group"><label>Empresa</label><input type="text" name="empresa" placeholder="Nombre de su empresa"></div>
+                    <div class="form-group">
+                        <label>Servicio de Interés</label>
+                        <select name="servicio"><option value="">Seleccione un servicio</option><option value="electricos">Servicios Eléctricos</option><option value="industriales">Servicios Industriales</option><option value="suministros">Suministros</option><option value="hvac">HVAC / Climatización</option><option value="obra-civil">Obra Civil</option><option value="capacitaciones">Capacitaciones</option><option value="otro">Otro</option></select>
+                    </div>
+                    <div class="form-group"><label>Mensaje <span class="req">*</span></label><textarea name="mensaje" required placeholder="Cuéntenos sobre su proyecto o necesidad..."></textarea></div>
+                    <button type="submit" class="btn btn-primary btn-submit">Enviar Mensaje <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div><div class="footer-brand"><span>H</span>ERMES</div><p class="footer-tagline">Tu mejor aliado en servicios de diseño, instalación, reparación y mantenimiento de sistemas eléctricos, industriales y de construcción.</p></div>
+            <div class="footer-col"><h5>Navegación</h5><ul><li><a href="#inicio">Inicio</a></li><li><a href="#nosotros">Nosotros</a></li><li><a href="#servicios">Servicios</a></li><li><a href="#proyectos">Proyectos</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
+            <div class="footer-col"><h5>Contacto</h5><ul><li><a href="mailto:info@innovadorahermes.mx">info@innovadorahermes.mx</a></li><li><a href="#">Ciudad de México, CDMX</a></li><li><a href="#">+52 (55) 1234-5678</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><span>&copy; 2026 INNOVADORA HERMES — Todos los derechos reservados</span><span>Ingeniería y Mantenimiento Industrial</span></div>
+    </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-top" id="backTop" aria-label="Volver arriba"><svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg></button>
+
+<script>
+/* ═══ SCROLL PROGRESS + NAVBAR + BACK-TOP ═══ */
+const sp=document.getElementById('scrollProgress'),nav=document.getElementById('navbar'),bt=document.getElementById('backTop');
+let lastY=0;
+window.addEventListener('scroll',()=>{
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    sp.style.width=h>0?(window.scrollY/h*100)+'%':'0%';
+    const y=window.scrollY;
+    nav.classList.toggle('scrolled',y>60);
+    if(y>lastY&&y>300)nav.classList.add('hidden');else nav.classList.remove('hidden');
+    lastY=y;
+    bt.classList.toggle('show',y>500);
+},{passive:true});
+bt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ═══ MOBILE MENU ═══ */
+const tog=document.getElementById('navToggle'),mm=document.getElementById('mobileMenu');
+tog.addEventListener('click',()=>{tog.classList.toggle('open');mm.classList.toggle('open');document.body.style.overflow=mm.classList.contains('open')?'hidden':'';});
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{tog.classList.remove('open');mm.classList.remove('open');document.body.style.overflow='';}));
+
+/* ═══ SMOOTH SCROLL ═══ */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)window.scrollTo({top:t.offsetTop-60,behavior:'smooth'});});});
+
+/* ═══ REVEAL ON SCROLL ═══ */
+const rObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(el=>rObs.observe(el));
+
+/* ═══ COUNTERS ═══ */
+const cEls=document.querySelectorAll('[data-target]');let cDone=false;
+const cObs=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting&&!cDone){cDone=true;cEls.forEach(el=>{const tgt=+el.dataset.target,sfx=el.dataset.suffix||'',dur=1600,st=performance.now();(function step(now){const p=Math.min((now-st)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.floor(tgt*e)+sfx;if(p<1)requestAnimationFrame(step)})(st)});}});},{threshold:0.3});
+cEls.forEach(el=>cObs.observe(el));
+
+/* ═══ SERVICE CARD GLOW ═══ */
+document.querySelectorAll('.svc-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect();
+        card.style.setProperty('--mx',(e.clientX-r.left)/r.width*100+'%');
+        card.style.setProperty('--my',(e.clientY-r.top)/r.height*100+'%');
+    });
+});
+
+/* ═══ CAROUSEL ═══ */
+(function(){
+    const car=document.getElementById('projectsCarousel'),trk=document.getElementById('projectsTrack');
+    if(!car||!trk)return;
+    let down=false,startX,curX=0,tgtX=0,velX=0,prevX=0,rafId;
+    function pDown(e){down=true;car.classList.add('dragging');startX=e.touches?e.touches[0].pageX:e.pageX;velX=0;cancelAnimationFrame(rafId);}
+    function pMove(e){if(!down)return;e.preventDefault();const x=e.touches?e.touches[0].pageX:e.pageX;velX=x-prevX;prevX=x;tgtX=curX+(x-startX);const mx=trk.scrollWidth-car.offsetWidth;tgtX=Math.max(-mx,Math.min(0,tgtX));trk.style.transform=`translateX(${tgtX}px)`;}
+    function pUp(){if(!down)return;down=false;car.classList.remove('dragging');curX=tgtX;(function mom(){if(Math.abs(velX)<0.5)return;velX*=0.95;curX+=velX;const mx=trk.scrollWidth-car.offsetWidth;curX=Math.max(-mx,Math.min(0,curX));tgtX=curX;trk.style.transform=`translateX(${curX}px)`;rafId=requestAnimationFrame(mom)})();}
+    car.addEventListener('mousedown',e=>{prevX=e.pageX;pDown(e)});car.addEventListener('mousemove',pMove);car.addEventListener('mouseup',pUp);car.addEventListener('mouseleave',pUp);
+    car.addEventListener('touchstart',e=>{prevX=e.touches[0].pageX;pDown(e)},{passive:false});car.addEventListener('touchmove',pMove,{passive:false});car.addEventListener('touchend',pUp);
+})();
+
+/* ═══ MARQUEE DUPLICATE ═══ */
+(function(){
+    const track=document.getElementById('trustTrack');
+    if(!track)return;
+    track.innerHTML+=track.innerHTML;
+})();
+
+/* ═══ TESTIMONIAL CAROUSEL ═══ */
+(function(){
+    const slides=document.querySelectorAll('.test-slide');
+    const dots=document.querySelectorAll('.test-dot');
+    if(!slides.length)return;
+    let cur=0,timer;
+    function go(idx){
+        slides[cur].classList.remove('active');
+        dots[cur].classList.remove('active');
+        cur=idx;
+        slides[cur].classList.add('active');
+        dots[cur].classList.add('active');
+    }
+    function next(){go((cur+1)%slides.length);}
+    timer=setInterval(next,5000);
+    dots.forEach(d=>{d.addEventListener('click',()=>{clearInterval(timer);go(+d.dataset.idx);timer=setInterval(next,5000);});});
+})();
+
+/* ═══ FORM ═══ */
+document.getElementById('contactForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    this.innerHTML='<div style="text-align:center;padding:44px 24px"><div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#1565C0,#00B4D8);display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><h3 style="font-family:Space Grotesk;font-size:1.3rem;color:#0F172A;margin-bottom:10px">Mensaje Enviado</h3><p style="color:#64748B;font-size:0.95rem;line-height:1.7;max-width:380px;margin:0 auto">Gracias por su interés en INNOVADORA HERMES. Un miembro de nuestro equipo se comunicará con usted a la brevedad.</p></div>';
+});
+</script>
+</body>
+</html>

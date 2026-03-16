@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INNOVADORA HERMES | Ingeniería y Mantenimiento Industrial</title>
+<meta name="description" content="Tu mejor aliado en servicios de diseño, instalación, reparación y mantenimiento de sistemas eléctricos, industriales y de construcción.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   ROOT & RESET
+   ══════════════════════════════════════ */
+:root {
+    --black: #080808;
+    --dark: #0d0d0d;
+    --card: #111111;
+    --border: rgba(255,255,255,0.07);
+    --amber: #E8821A;
+    --amber-light: #F5A444;
+    --amber-glow: rgba(232,130,26,0.12);
+    --white: #F5F2EE;
+    --muted: rgba(245,242,238,0.45);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font-family: inherit; }
+
+::selection {
+    background: var(--amber);
+    color: var(--black);
+}
+
+:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+}
+
+/* ══════════════════════════════════════
+   SCROLL PROGRESS BAR
+   ══════════════════════════════════════ */
+.scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--amber);
+    z-index: 10000;
+    width: 0%;
+    will-change: width;
+    transition: width 0.05s linear;
+}
+
+/* ══════════════════════════════════════
+   CUSTOM CURSOR
+   ══════════════════════════════════════ */
+.cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 6px; height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    will-change: transform;
+    transition: transform 0.1s ease;
+}
+
+.cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--amber);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    will-change: transform;
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
+    opacity: 0.5;
+}
+
+.cursor-ring.hover {
+    width: 56px; height: 56px;
+    border-color: var(--amber-light);
+    opacity: 0.8;
+}
+
+@media (pointer: coarse) {
+    .cursor-dot, .cursor-ring { display: none; }
+    body { cursor: auto; }
+}
+
+/* ══════════════════════════════════════
+   LAYOUT
+   ══════════════════════════════════════ */
+.container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.section {
+    padding: 120px 0;
+    position: relative;
+}
+
+.section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-label::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--amber);
+}
+
+.section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.section-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.75;
+}
+
+/* ══════════════════════════════════════
+   REVEAL ANIMATIONS
+   ══════════════════════════════════════ */
+.rv {
+    opacity: 0;
+    transform: translateY(50px);
+    will-change: opacity, transform;
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rv.vis { opacity: 1; transform: translateY(0); }
+.rv-d1 { transition-delay: 0.1s; }
+.rv-d2 { transition-delay: 0.2s; }
+.rv-d3 { transition-delay: 0.3s; }
+.rv-d4 { transition-delay: 0.4s; }
+.rv-d5 { transition-delay: 0.5s; }
+
+/* ══════════════════════════════════════
+   NAVBAR
+   ══════════════════════════════════════ */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9000;
+    padding: 20px 0;
+    transition: transform 0.4s ease, background 0.4s ease, padding 0.4s ease;
+}
+
+.navbar.scrolled {
+    padding: 12px 0;
+    background: rgba(8,8,8,0.72);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar.hidden { transform: translateY(-100%); }
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-brand img {
+    height: 32px; width: auto;
+}
+
+.nav-brand-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: var(--white);
+}
+
+.nav-brand-text span {
+    color: var(--amber);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: color 0.3s, background 0.3s;
+    letter-spacing: 0.3px;
+}
+
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--amber) !important;
+    border: 1px solid var(--amber);
+    padding: 9px 22px !important;
+    border-radius: 6px;
+    transition: all 0.3s !important;
+}
+
+.nav-cta:hover {
+    background: var(--amber) !important;
+    color: var(--black) !important;
+}
+
+/* Mobile toggle */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+    z-index: 9001;
+}
+
+.nav-toggle span {
+    width: 22px; height: 1.5px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all 0.3s;
+    display: block;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: rgba(8,8,8,0.96);
+    backdrop-filter: blur(30px);
+    z-index: 8999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+
+.mobile-menu.open { opacity: 1; pointer-events: auto; }
+
+.mobile-menu a {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 12px 24px;
+    transition: color 0.3s;
+}
+
+.mobile-menu a:hover { color: var(--amber); }
+
+/* ══════════════════════════════════════
+   HERO
+   ══════════════════════════════════════ */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-bg img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(8,8,8,0.75) 0%,
+        rgba(8,8,8,0.6) 40%,
+        rgba(8,8,8,0.85) 100%
+    );
+}
+
+/* Noise texture overlay */
+.hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    pointer-events: none;
+}
+
+.hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 28px;
+    overflow: hidden;
+}
+
+.hero-label span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: heroRevealLine 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+
+.hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 28px;
+}
+
+.hero h1 .hero-line {
+    display: block;
+    overflow: hidden;
+}
+
+.hero h1 .hero-line-inner {
+    display: block;
+    opacity: 0;
+    transform: translateY(105%);
+}
+
+.hero h1 .hero-line:nth-child(1) .hero-line-inner {
+    animation: heroRevealLine 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+}
+.hero h1 .hero-line:nth-child(2) .hero-line-inner {
+    animation: heroRevealLine 1s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
+}
+.hero h1 .hero-line:nth-child(3) .hero-line-inner {
+    animation: heroRevealLine 1s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards;
+    color: var(--amber);
+}
+
+@keyframes heroRevealLine {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: heroFade 1s ease 1.3s forwards;
+}
+
+@keyframes heroFade {
+    to { opacity: 1; }
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: heroFade 1s ease 1.5s forwards;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 32px;
+    border-radius: 8px;
+    border: none;
+    cursor: none;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: 0.3px;
+}
+
+.btn-amber {
+    background: var(--amber);
+    color: var(--black);
+}
+
+.btn-amber:hover {
+    background: var(--amber-light);
+    box-shadow: 0 8px 30px var(--amber-glow), 0 0 60px var(--amber-glow);
+    transform: translateY(-2px);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.btn-ghost:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+}
+
+.hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: heroFade 1s ease 2s forwards;
+}
+
+.hero-scroll span {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.hero-scroll-line {
+    width: 1px;
+    height: 48px;
+    background: rgba(255,255,255,0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: var(--amber);
+    animation: scrollLine 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+    0% { top: -50%; }
+    100% { top: 120%; }
+}
+
+/* ══════════════════════════════════════
+   ABOUT / NOSOTROS
+   ══════════════════════════════════════ */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 72px;
+    align-items: center;
+}
+
+.about-text .description {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.about-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.stat { text-align: left; }
+
+.stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    color: var(--amber);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.mv-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.mv-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.3s;
+}
+
+.mv-card:hover { border-color: rgba(232,130,26,0.25); }
+
+.mv-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--amber);
+    margin-bottom: 10px;
+}
+
+.mv-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.about-visual {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+}
+
+.about-visual img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+
+.about-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    pointer-events: none;
+}
+
+/* ══════════════════════════════════════
+   VALUES
+   ══════════════════════════════════════ */
+.values { background: var(--dark); }
+
+.values-header { text-align: center; margin-bottom: 60px; }
+.values-header .section-sub { margin: 0 auto; }
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.value-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.value-card:hover {
+    border-color: var(--amber);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 0 1px var(--amber);
+}
+
+.value-icon {
+    width: 48px; height: 48px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--amber-glow);
+}
+
+.value-icon svg {
+    width: 24px; height: 24px;
+    stroke: var(--amber);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.value-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+.value-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+/* ══════════════════════════════════════
+   SERVICES
+   ══════════════════════════════════════ */
+.services-header { text-align: center; margin-bottom: 64px; }
+.services-header .section-sub { margin: 0 auto; }
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.service-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 32px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.service-card:hover {
+    border-color: rgba(232,130,26,0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.service-card-icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: var(--amber-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.service-card-icon svg {
+    width: 28px; height: 28px;
+    stroke: var(--amber);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+.service-card ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.service-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.service-card li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--amber);
+    margin-top: 7px;
+}
+
+/* ══════════════════════════════════════
+   PROJECTS
+   ══════════════════════════════════════ */
+.projects {
+    background: var(--dark);
+    overflow: hidden;
+}
+
+.projects-header { margin-bottom: 48px; }
+
+.projects-carousel {
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.projects-carousel.dragging { cursor: grabbing; }
+
+.projects-track {
+    display: flex;
+    gap: 20px;
+    will-change: transform;
+}
+
+.project-card {
+    flex: 0 0 340px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: border-color 0.3s;
+}
+
+.project-card:hover { border-color: rgba(232,130,26,0.25); }
+
+.project-card-img {
+    aspect-ratio: 16/11;
+    overflow: hidden;
+    position: relative;
+    background: var(--dark);
+}
+
+.project-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-card-img img {
+    transform: scale(1.06);
+}
+
+.project-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.project-card-body {
+    padding: 20px 22px;
+}
+
+.project-card-body h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+.project-card-body .project-loc {
+    font-size: 0.78rem;
+    color: var(--amber);
+    font-weight: 500;
+}
+
+.projects-hint {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+}
+
+/* ══════════════════════════════════════
+   CONTACT
+   ══════════════════════════════════════ */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 64px;
+    align-items: start;
+}
+
+.contact-info .section-sub { margin-bottom: 40px; }
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.contact-detail-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-detail-icon svg {
+    width: 20px; height: 20px;
+    stroke: var(--amber);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.contact-detail div { display: flex; flex-direction: column; }
+
+.contact-detail .cd-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.contact-detail .cd-value {
+    font-size: 0.95rem;
+    color: var(--white);
+    font-weight: 600;
+}
+
+.contact-form {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group { margin-bottom: 18px; }
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 7px;
+    letter-spacing: 0.5px;
+}
+
+.form-group label .req { color: var(--amber); }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--white);
+    background: rgba(255,255,255,0.03);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(245,242,238,0.25);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px var(--amber-glow);
+}
+
+.form-group textarea { resize: vertical; min-height: 110px; }
+
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23F5F2EE' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: var(--card);
+    color: var(--white);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    font-size: 14px;
+    justify-content: center;
+    cursor: none;
+}
+
+.form-success {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+}
+
+.form-success.show { display: block; }
+
+.form-success-check {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 2px solid var(--amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.form-success-check svg {
+    width: 28px; height: 28px;
+    stroke: var(--amber);
+    fill: none;
+    stroke-width: 2;
+}
+
+.form-success h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+}
+
+.form-success p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════ */
+.footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 56px 0 28px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+}
+
+.footer-brand-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 12px;
+}
+
+.footer-brand-text span { color: var(--amber); }
+
+.footer-tagline {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 340px;
+}
+
+.footer-col h5 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.footer-col ul li { margin-bottom: 10px; }
+
+.footer-col ul a {
+    font-size: 0.88rem;
+    color: var(--muted);
+    transition: color 0.3s;
+}
+
+.footer-col ul a:hover { color: var(--amber); }
+
+.footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .values-grid { grid-template-columns: repeat(3, 1fr); }
+    .services-grid { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { max-width: 500px; aspect-ratio: 4/3; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+@media (max-width: 768px) {
+    .section { padding: 80px 0; }
+
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+
+    .hero h1 { font-size: clamp(3.2rem, 14vw, 6rem); }
+
+    .about-stats { gap: 24px; }
+    .about-stats .stat-number { font-size: 2.4rem; }
+    .mv-cards { grid-template-columns: 1fr; }
+
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .project-card { flex: 0 0 280px; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+    .container { padding: 0 18px; }
+    .hero h1 { font-size: clamp(2.8rem, 15vw, 4.5rem); }
+    .hero-buttons { flex-direction: column; }
+    .hero-buttons .btn { width: 100%; justify-content: center; }
+    .about-stats { flex-wrap: wrap; }
+    .values-grid { grid-template-columns: 1fr; }
+    .contact-form { padding: 28px 20px; }
+    .about-float-card { bottom: -12px; right: 8px; padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio">Inicio</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#contacto">Contacto</a>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#inicio" class="nav-brand">
+            <img src="logo.png" alt="Innovadora Hermes" onerror="this.style.display='none'">
+            <div class="nav-brand-text"><span>H</span>ERMES</div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#contacto" class="nav-cta">Contáctanos</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="inicio">
+    <div class="hero-bg">
+        <img src="hero.jpg" alt="Ingeniería industrial" onerror="this.parentElement.style.background='linear-gradient(135deg,#0a0a0a,#141414)'">
+    </div>
+    <div class="hero-noise"></div>
+    <canvas class="hero-particles" id="heroParticles"></canvas>
+    <div class="container">
+        <div class="hero-label"><span>Ingeniería y Mantenimiento Industrial</span></div>
+        <h1>
+            <span class="hero-line"><span class="hero-line-inner">TU MEJOR</span></span>
+            <span class="hero-line"><span class="hero-line-inner">ALIADO</span></span>
+            <span class="hero-line"><span class="hero-line-inner">INDUSTRIAL</span></span>
+        </h1>
+        <p class="hero-sub">Diseño, instalación, reparación y mantenimiento de sistemas eléctricos, industriales y de construcción.</p>
+        <div class="hero-buttons">
+            <a href="#servicios" class="btn btn-amber">
+                Ver Servicios
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#proyectos" class="btn btn-ghost">Conocer Proyectos</a>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
+    </div>
+</section>
+
+<!-- ═══ NOSOTROS ═══ -->
+<section class="section" id="nosotros">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <div class="section-label rv">Quiénes Somos</div>
+                <h2 class="section-title rv rv-d1">Más de 40 profesionales<br>a su servicio</h2>
+                <p class="description rv rv-d2">Fundada en 2020 como una empresa de ingeniería y mantenimientos industriales, <strong style="color:var(--white)">INNOVADORA HERMES</strong> ha crecido y se ha transformado en una empresa especializada en el diseño, instalación, reparación y mantenimiento de equipos industriales, así como en proyectos de construcción, mantenimiento y puesta en marcha.</p>
+                <p class="description rv rv-d3">Atendemos las necesidades de clientes privados y del sector público, garantizando resultados sobresalientes. Para nosotros, es fundamental ser un aliado para la solución de las necesidades de nuestros clientes.</p>
+
+                <div class="about-stats rv rv-d3">
+                    <div class="stat">
+                        <div class="stat-number" data-target="40" data-suffix="+">0</div>
+                        <div class="stat-label">Técnicos e Ingenieros</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-target="5" data-suffix="+">0</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-target="100" data-suffix="+">0</div>
+                        <div class="stat-label">Proyectos Completados</div>
+                    </div>
+                </div>
+
+                <div class="mv-cards rv rv-d4">
+                    <div class="mv-card">
+                        <h4>Misión</h4>
+                        <p>Brindar soluciones eficaces, eficientes y confiables en servicios de sistemas eléctricos, industriales y de construcción, siempre en tiempo y forma y con los más altos estándares de calidad y profesionalismo.</p>
+                    </div>
+                    <div class="mv-card">
+                        <h4>Visión</h4>
+                        <p>Ser la opción preferente en la prestación de servicios de reparación y mantenimiento eléctrico, industrial y de construcción en México.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual rv rv-d2">
+                <img src="equipo.jpg" alt="Equipo de trabajo INNOVADORA HERMES" onerror="this.parentElement.style.background='var(--card)'">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ VALORES ═══ -->
+<section class="section values" id="valores">
+    <div class="container">
+        <div class="values-header">
+            <div class="section-label rv" style="justify-content:center">Nuestros Valores</div>
+            <h2 class="section-title rv rv-d1">Lo que nos define</h2>
+            <p class="section-sub rv rv-d2">Principios que guían cada uno de nuestros proyectos y relaciones.</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card rv rv-d1">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h4>Confianza</h4>
+                <p>Certeza en nuestro equipo, nuestro trabajo y nuestros resultados.</p>
+            </div>
+            <div class="value-card rv rv-d2">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <h4>Calidad</h4>
+                <p>Compromiso con el cumplimiento de los más altos estándares y expectativas del cliente.</p>
+            </div>
+            <div class="value-card rv rv-d3">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                </div>
+                <h4>Seguridad Primero</h4>
+                <p>Política de 0 accidentes, cuidado de la salud y bienestar del equipo.</p>
+            </div>
+            <div class="value-card rv rv-d4">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <h4>Profesionalismo</h4>
+                <p>Excelencia mediante métodos, procesos y herramientas innovadoras.</p>
+            </div>
+            <div class="value-card rv rv-d5">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h4>Excelencia en Servicio</h4>
+                <p>El cliente como eje de todas nuestras decisiones y procesos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ SERVICIOS ═══ -->
+<section class="section" id="servicios">
+    <div class="container">
+        <div class="services-header">
+            <div class="section-label rv" style="justify-content:center">Qué Hacemos</div>
+            <h2 class="section-title rv rv-d1">Servicios integrales<br>para su industria</h2>
+            <p class="section-sub rv rv-d2">Más de 40 técnicos e ingenieros con experiencia en proyectos diversos y complejos.</p>
+        </div>
+
+        <div class="services-grid">
+            <!-- Eléctricos -->
+            <div class="service-card rv rv-d1" data-tilt>
+                <div class="service-card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <h3>Servicios Eléctricos</h3>
+                <ul>
+                    <li>Mantenimiento de redes eléctricas</li>
+                    <li>Mantenimiento de plantas de emergencia</li>
+                    <li>Instalación de subestaciones eléctricas</li>
+                    <li>Mantenimiento de subestaciones eléctricas</li>
+                    <li>Redes eléctricas de alta, media y baja tensión</li>
+                    <li>Mantenimiento de tableros de transferencia</li>
+                    <li>Instalación de equipo de puesta a tierra</li>
+                    <li>Alumbrado público e iluminación</li>
+                </ul>
+            </div>
+
+            <!-- Industriales -->
+            <div class="service-card rv rv-d2" data-tilt>
+                <div class="service-card-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </div>
+                <h3>Servicios Industriales</h3>
+                <ul>
+                    <li>Equipos de climatización y refrigeración</li>
+                    <li>Mantenimiento de equipos de línea blanca</li>
+                    <li>Servicios de soldadura y metalmecánica</li>
+                    <li>Plantas tratadoras de agua y humedales</li>
+                    <li>Mantenimiento integral de edificios</li>
+                </ul>
+            </div>
+
+            <!-- Otros -->
+            <div class="service-card rv rv-d3" data-tilt>
+                <div class="service-card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                </div>
+                <h3>Otros Servicios</h3>
+                <ul>
+                    <li>Suministros eléctricos e industriales</li>
+                    <li>Equipo de HVAC y material eléctrico</li>
+                    <li>Renta de maquinaria y plantas de emergencia</li>
+                    <li>Proveedor de gases medicinales</li>
+                    <li>Obra civil</li>
+                    <li>Capacitaciones y certificaciones</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ PROYECTOS ═══ -->
+<section class="section projects" id="proyectos">
+    <div class="container">
+        <div class="projects-header">
+            <div class="section-label rv">Nuestros Proyectos</div>
+            <h2 class="section-title rv rv-d1">Proyectos representativos</h2>
+            <p class="section-sub rv rv-d2">Experiencia comprobada en proyectos diversos y complejos para el sector público y privado.</p>
+        </div>
+    </div>
+
+    <div class="projects-carousel rv rv-d3" id="projectsCarousel">
+        <div class="projects-track" id="projectsTrack" style="padding-left: max(24px, calc((100vw - 1240px)/2 + 24px));">
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-1.jpg" alt="Mantenimiento a transformadores" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Mantenimiento y pruebas a transformadores</h4>
+                    <span class="project-loc">Aeropuerto de Campeche, Campeche</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-2.jpg" alt="Sistema hidráulico y bomba de calor" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Instalación de sistema hidráulico y bomba de calor</h4>
+                    <span class="project-loc">Ciudad de México, CDMX</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-3.jpg" alt="Plantas de emergencia" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Mantenimiento preventivo a plantas de emergencia</h4>
+                    <span class="project-loc">Estado de México</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-4.jpg" alt="Subestación eléctrica" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Mantenimiento correctivo a subestación eléctrica de seccionamiento</h4>
+                    <span class="project-loc">Querétaro, QRO</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-5.jpg" alt="Planta tratadora de aguas" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Mantenimiento a sopladores de planta tratadora de aguas residuales</h4>
+                    <span class="project-loc">Puebla, PUE</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-6.jpg" alt="Red de media tensión" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Red de media tensión e instalación de transformador pedestal</h4>
+                    <span class="project-loc">Toluca, Estado de México</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-7.jpg" alt="Sistema contra incendio" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Reparación de sistema contra incendio y sensores de detección</h4>
+                    <span class="project-loc">Ciudad de México, CDMX</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-8.jpg" alt="Caldera generadora de vapor" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Mantenimiento correctivo a caldera generadora de vapor</h4>
+                    <span class="project-loc">Monterrey, NL</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-9.jpg" alt="Sistema UPS" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Mantenimiento a sistema de respaldo de energía UPS</h4>
+                    <span class="project-loc">Guadalajara, JAL</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-10.jpg" alt="Sistema VRV Daikin" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Mantenimiento y programación a sistema VRV Daikin</h4>
+                    <span class="project-loc">Ciudad de México, CDMX</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-11.jpg" alt="Sistemas VRF LG" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Mantenimiento correctivo a sistemas VRF marca LG</h4>
+                    <span class="project-loc">León, GTO</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-img">
+                    <img src="proyecto-12.jpg" alt="Capacitación analizadores de red" onerror="this.style.display='none'">
+                    <div class="project-card-overlay"></div>
+                </div>
+                <div class="project-card-body">
+                    <h4>Curso de calidad de energía y capacitación en analizadores de red</h4>
+                    <span class="project-loc">Ciudad de México, CDMX</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="projects-hint rv">← Arrastra para explorar →</p>
+</section>
+
+<!-- ═══ CONTACTO ═══ -->
+<section class="section" id="contacto">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="section-label rv">Contacto</div>
+                <h2 class="section-title rv rv-d1">Hablemos de<br>su proyecto</h2>
+                <p class="section-sub rv rv-d2">Estamos listos para ser su aliado en soluciones de ingeniería y mantenimiento industrial.</p>
+
+                <div style="margin-top: 40px;">
+                    <div class="contact-detail rv rv-d3">
+                        <div class="contact-detail-icon">
+                            <svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        </div>
+                        <div>
+                            <span class="cd-label">Email</span>
+                            <span class="cd-value">info@innovadorahermes.mx</span>
+                        </div>
+                    </div>
+                    <div class="contact-detail rv rv-d4">
+                        <div class="contact-detail-icon">
+                            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div>
+                            <span class="cd-label">Ubicación</span>
+                            <span class="cd-value">Ciudad de México, CDMX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form rv rv-d2" id="contactFormWrapper">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre Completo <span class="req">*</span></label>
+                            <input type="text" name="nombre" required placeholder="Su nombre completo">
+                        </div>
+                        <div class="form-group">
+                            <label>Correo Electrónico <span class="req">*</span></label>
+                            <input type="email" name="email" required placeholder="correo@ejemplo.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" name="telefono" placeholder="+52 55 1234 5678">
+                        </div>
+                        <div class="form-group">
+                            <label>Puesto</label>
+                            <input type="text" name="puesto" placeholder="Su puesto o cargo">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <input type="text" name="empresa" placeholder="Nombre de su empresa">
+                    </div>
+                    <div class="form-group">
+                        <label>Servicio de Interés</label>
+                        <select name="servicio">
+                            <option value="">Seleccione un servicio</option>
+                            <option value="electricos">Servicios Eléctricos</option>
+                            <option value="industriales">Servicios Industriales</option>
+                            <option value="suministros">Suministros</option>
+                            <option value="hvac">HVAC / Climatización</option>
+                            <option value="obra-civil">Obra Civil</option>
+                            <option value="capacitaciones">Capacitaciones</option>
+                            <option value="gases">Gases Medicinales</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>¿En qué podemos ayudarle? <span class="req">*</span></label>
+                        <textarea name="mensaje" required placeholder="Cuéntenos sobre su proyecto o necesidad..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-amber btn-submit">
+                        Enviar Mensaje
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    <div class="form-success-check">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <h3>Mensaje Enviado</h3>
+                    <p>INNOVADORA HERMES agradece su interés en nuestros servicios. Un miembro de nuestro equipo se comunicará con usted a la brevedad.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-brand-text"><span>H</span>ERMES</div>
+                <p class="footer-tagline">Tu mejor aliado en servicios de diseño, instalación, reparación y mantenimiento de sistemas eléctricos, industriales y de construcción.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Navegación</h5>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#proyectos">Proyectos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Contacto</h5>
+                <ul>
+                    <li><a href="mailto:info@innovadorahermes.mx">info@innovadorahermes.mx</a></li>
+                    <li><a href="#">Ciudad de México, CDMX</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Derechos Reservados — INNOVADORA HERMES</span>
+            <span>Ingeniería y Mantenimiento Industrial</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════
+   CUSTOM CURSOR
+   ══════════════════════════════════════ */
+(function() {
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    if (!dot || !ring) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    let mx = -100, my = -100, rx = -100, ry = -100;
+
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        dot.style.transform = `translate(${mx - 3}px, ${my - 3}px)`;
+    });
+
+    function animateRing() {
+        rx += (mx - rx) * 0.15;
+        ry += (my - ry) * 0.15;
+        ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+        requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    const hoverEls = 'a, button, .service-card, .project-card, input, select, textarea';
+    document.addEventListener('mouseover', e => {
+        if (e.target.closest(hoverEls)) ring.classList.add('hover');
+    });
+    document.addEventListener('mouseout', e => {
+        if (e.target.closest(hoverEls)) ring.classList.remove('hover');
+    });
+})();
+
+/* ══════════════════════════════════════
+   SCROLL PROGRESS
+   ══════════════════════════════════════ */
+const scrollProgress = document.getElementById('scrollProgress');
+function updateProgress() {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgress.style.width = h > 0 ? (window.scrollY / h * 100) + '%' : '0%';
+}
+
+/* ══════════════════════════════════════
+   NAVBAR HIDE/SHOW + SCROLL STATE
+   ══════════════════════════════════════ */
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+function updateNav() {
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 80);
+    if (y > lastScroll && y > 400) {
+        navbar.classList.add('hidden');
+    } else {
+        navbar.classList.remove('hidden');
+    }
+    lastScroll = y;
+}
+
+window.addEventListener('scroll', () => {
+    updateProgress();
+    updateNav();
+}, { passive: true });
+
+/* ══════════════════════════════════════
+   MOBILE MENU
+   ══════════════════════════════════════ */
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+});
+
+mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+        navToggle.classList.remove('open');
+        mobileMenu.classList.remove('open');
+    });
+});
+
+/* ══════════════════════════════════════
+   SMOOTH SCROLL
+   ══════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) window.scrollTo({ top: t.offsetTop - 70, behavior: 'smooth' });
+    });
+});
+
+/* ══════════════════════════════════════
+   REVEAL ON SCROLL
+   ══════════════════════════════════════ */
+const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.rv').forEach(el => revealObs.observe(el));
+
+/* ══════════════════════════════════════
+   COUNTER ANIMATION
+   ══════════════════════════════════════ */
+const counters = document.querySelectorAll('.stat-number[data-target]');
+let countersDone = false;
+
+const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && !countersDone) {
+            countersDone = true;
+            counters.forEach(el => {
+                const target = +el.dataset.target;
+                const suffix = el.dataset.suffix || '';
+                const duration = 1800;
+                const start = performance.now();
+
+                function step(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(target * eased) + suffix;
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            });
+        }
+    });
+}, { threshold: 0.3 });
+
+counters.forEach(el => counterObs.observe(el));
+
+/* ══════════════════════════════════════
+   3D TILT CARDS
+   ══════════════════════════════════════ */
+document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * -6;
+        const rotateY = ((x - cx) / cx) * 6;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02,1.02,1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+        card.style.transition = 'transform 0.5s ease';
+        setTimeout(() => { card.style.transition = ''; }, 500);
+    });
+});
+
+/* ══════════════════════════════════════
+   DRAGGABLE CAROUSEL
+   ══════════════════════════════════════ */
+(function() {
+    const carousel = document.getElementById('projectsCarousel');
+    const track = document.getElementById('projectsTrack');
+    if (!carousel || !track) return;
+
+    let isDown = false, startX, scrollLeft, velX = 0, rafId;
+
+    function pointerDown(e) {
+        isDown = true;
+        carousel.classList.add('dragging');
+        startX = (e.touches ? e.touches[0].pageX : e.pageX);
+        scrollLeft = carousel.scrollLeft || 0;
+        velX = 0;
+        cancelAnimationFrame(rafId);
+        // Use carousel wrapper scroll
+    }
+
+    // We scroll the parent by translating the track
+    let currentX = 0, targetX = 0;
+
+    function pointerDown2(e) {
+        isDown = true;
+        carousel.classList.add('dragging');
+        startX = e.touches ? e.touches[0].pageX : e.pageX;
+        velX = 0;
+        cancelAnimationFrame(rafId);
+    }
+
+    let prevMoveX = 0;
+    function pointerMove(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.touches ? e.touches[0].pageX : e.pageX;
+        const diff = x - startX;
+        velX = x - prevMoveX;
+        prevMoveX = x;
+        targetX = currentX + diff;
+        // Clamp
+        const maxScroll = track.scrollWidth - carousel.offsetWidth;
+        targetX = Math.max(-maxScroll, Math.min(0, targetX));
+        track.style.transform = `translateX(${targetX}px)`;
+    }
+
+    function pointerUp() {
+        if (!isDown) return;
+        isDown = false;
+        carousel.classList.remove('dragging');
+        currentX = targetX;
+        // Momentum
+        momentum();
+    }
+
+    function momentum() {
+        if (Math.abs(velX) < 0.5) return;
+        velX *= 0.95;
+        currentX += velX;
+        const maxScroll = track.scrollWidth - carousel.offsetWidth;
+        currentX = Math.max(-maxScroll, Math.min(0, currentX));
+        targetX = currentX;
+        track.style.transform = `translateX(${currentX}px)`;
+        rafId = requestAnimationFrame(momentum);
+    }
+
+    carousel.addEventListener('mousedown', e => { prevMoveX = e.pageX; pointerDown2(e); });
+    carousel.addEventListener('mousemove', pointerMove);
+    carousel.addEventListener('mouseup', pointerUp);
+    carousel.addEventListener('mouseleave', pointerUp);
+
+    carousel.addEventListener('touchstart', e => { prevMoveX = e.touches[0].pageX; pointerDown2(e); }, { passive: false });
+    carousel.addEventListener('touchmove', pointerMove, { passive: false });
+    carousel.addEventListener('touchend', pointerUp);
+
+    // Prevent click on drag
+    carousel.addEventListener('click', e => {
+        if (Math.abs(velX) > 2) e.preventDefault();
+    }, true);
+})();
+
+/* ══════════════════════════════════════
+   HERO PARTICLES (subtle)
+   ══════════════════════════════════════ */
+(function() {
+    const canvas = document.getElementById('heroParticles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+
+    function resize() {
+        w = canvas.width = canvas.offsetWidth;
+        h = canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const count = Math.min(60, Math.floor(window.innerWidth / 20));
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.2 + 0.3,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            a: Math.random() * 0.3 + 0.05
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0) p.x = w;
+            if (p.x > w) p.x = 0;
+            if (p.y < 0) p.y = h;
+            if (p.y > h) p.y = 0;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(232,130,26,${p.a})`;
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
+/* ══════════════════════════════════════
+   CONTACT FORM
+   ══════════════════════════════════════ */
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovadora Hermes — Selector de Propuestas Web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:  #080808;
+  --dark:   #0d0d0d;
+  --card:   #111111;
+  --border: rgba(255,255,255,0.07);
+  --amber:  #E8821A;
+  --amber-light: #F5A444;
+  --amber-glow:  rgba(232,130,26,0.10);
+  --white:  #F5F2EE;
+  --muted:  rgba(245,242,238,0.45);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding: 60px 24px 80px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+header .label {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  border: 1px solid rgba(232,130,26,0.3);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 8vw, 80px);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--white);
+}
+header h1 span { color: var(--amber); }
+header p {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 300;
+}
+
+/* Section title */
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding-left: 2px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto 56px;
+}
+
+/* Card */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  text-decoration: none;
+  transition: border-color .2s, background .2s, transform .2s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--amber-glow);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.card:hover {
+  border-color: rgba(232,130,26,0.35);
+  background: #151515;
+  transform: translateY(-2px);
+}
+.card:hover::before { opacity: 1; }
+
+.card-badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  opacity: 0.8;
+}
+.card-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.3;
+}
+.card-desc {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 300;
+}
+.card-arrow {
+  margin-top: 6px;
+  font-size: 18px;
+  color: var(--amber);
+  align-self: flex-end;
+  opacity: 0;
+  transition: opacity .2s, transform .2s;
+}
+.card:hover .card-arrow { opacity: 1; transform: translateX(3px); }
+
+/* Color dots */
+.dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Divider */
+.section-wrap { max-width: 1100px; margin: 0 auto; }
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 300;
+}
+footer strong { color: var(--amber); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="label">Selector de propuestas</div>
+  <h1>INNOVADORA <span>HERMES</span></h1>
+  <p>Selecciona una propuesta de diseño para previsualizar</p>
+</header>
+
+<!-- PROPUESTA 1 -->
+<div class="section-wrap">
+  <p class="section-title">Propuesta 1 — Múltiples variantes</p>
+  <div class="grid">
+
+    <a class="card" href="propuesta1/v1-oscuro-ambar.html">
+      <span class="card-badge">P1 · V1</span>
+      <span class="card-name"><span class="dot" style="background:#E8821A"></span>Oscuro Ámbar</span>
+      <span class="card-desc">Tema oscuro · acento ámbar · DM Sans / Syne</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v2-oscuro-ambar-compacto.html">
+      <span class="card-badge">P1 · V2</span>
+      <span class="card-name"><span class="dot" style="background:#E8821A"></span>Oscuro Ámbar Compacto</span>
+      <span class="card-desc">Tema oscuro · ámbar · CSS compacto</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v3-oscuro-azul.html">
+      <span class="card-badge">P1 · V3</span>
+      <span class="card-name"><span class="dot" style="background:#1565C0"></span>Oscuro Azul</span>
+      <span class="card-desc">Tema oscuro · acento azul #1565C0</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v4-oscuro-verde-purpura.html">
+      <span class="card-badge">P1 · V4</span>
+      <span class="card-name"><span class="dot" style="background:#10B981"></span>Oscuro Verde / Púrpura</span>
+      <span class="card-desc">Tema oscuro · verde #10B981 + púrpura #8B5CF6</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v5-claro-azul.html">
+      <span class="card-badge">P1 · V5</span>
+      <span class="card-name"><span class="dot" style="background:#ffffff"></span>Claro Azul</span>
+      <span class="card-desc">Tema claro · Inter / Space Grotesk · profesional</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v6-oscuro-animado.html">
+      <span class="card-badge">P1 · V6</span>
+      <span class="card-name"><span class="dot" style="background:#E8821A"></span>Oscuro Animado</span>
+      <span class="card-desc">Tema oscuro · Outfit / Space Mono · loader + noise</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v7-claro-cian.html">
+      <span class="card-badge">P1 · V7</span>
+      <span class="card-name"><span class="dot" style="background:#06B6D4"></span>Claro Cian</span>
+      <span class="card-desc">Tema claro · Syne / DM Sans · azul y cian</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v8-oscuro-cian.html">
+      <span class="card-badge">P1 · V8</span>
+      <span class="card-name"><span class="dot" style="background:#06B6D4"></span>Oscuro Cian</span>
+      <span class="card-desc">Tema oscuro · cian/azul · cursor personalizado</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v9-claro-faq.html">
+      <span class="card-badge">P1 · V9</span>
+      <span class="card-name"><span class="dot" style="background:#ffffff"></span>Claro + FAQ</span>
+      <span class="card-desc">Tema claro · Schema.org FAQ · Syne / DM Sans</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/v10-claro-css-externo.html">
+      <span class="card-badge">P1 · V10</span>
+      <span class="card-name"><span class="dot" style="background:#ffffff"></span>Claro CSS Externo</span>
+      <span class="card-desc">Tema claro · Inter · hoja CSS separada · producción</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta1/selector.html">
+      <span class="card-badge">P1 · Extra</span>
+      <span class="card-name">⚙ Selector interno</span>
+      <span class="card-desc">Interfaz de selección de variantes de propuesta 1</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- PROPUESTA 2 -->
+<div class="section-wrap">
+  <p class="section-title">Propuesta 2 — Variantes base</p>
+  <div class="grid">
+
+    <a class="card" href="propuesta2/v1-oscuro-ambar.html">
+      <span class="card-badge">P2 · V1</span>
+      <span class="card-name"><span class="dot" style="background:#E8821A"></span>Oscuro Ámbar</span>
+      <span class="card-desc">Tema oscuro · acento ámbar</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta2/v2-oscuro-ambar.html">
+      <span class="card-badge">P2 · V2</span>
+      <span class="card-name"><span class="dot" style="background:#E8821A"></span>Oscuro Ámbar Alt</span>
+      <span class="card-desc">Tema oscuro · ámbar · variante alternativa</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta2/v3-oscuro-azul.html">
+      <span class="card-badge">P2 · V3</span>
+      <span class="card-name"><span class="dot" style="background:#1565C0"></span>Oscuro Azul</span>
+      <span class="card-desc">Tema oscuro · acento azul</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta2/v4-oscuro-verde-purpura.html">
+      <span class="card-badge">P2 · V4</span>
+      <span class="card-name"><span class="dot" style="background:#10B981"></span>Oscuro Verde / Púrpura</span>
+      <span class="card-desc">Tema oscuro · verde + púrpura</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta2/v5-claro-azul.html">
+      <span class="card-badge">P2 · V5</span>
+      <span class="card-name"><span class="dot" style="background:#ffffff"></span>Claro Azul</span>
+      <span class="card-desc">Tema claro · azul profesional</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta2/v6-oscuro-animado.html">
+      <span class="card-badge">P2 · V6</span>
+      <span class="card-name"><span class="dot" style="background:#E8821A"></span>Oscuro Animado</span>
+      <span class="card-desc">Tema oscuro · animaciones · noise overlay</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- PROPUESTA 3 -->
+<div class="section-wrap">
+  <p class="section-title">Propuesta 3 — Eléctrico Industrial</p>
+  <div class="grid">
+
+    <a class="card" href="propuesta3/v1-oscuro-electrico.html">
+      <span class="card-badge">P3 · V1</span>
+      <span class="card-name"><span class="dot" style="background:#0d6efd"></span>Oscuro Eléctrico</span>
+      <span class="card-desc">Tema oscuro · Rajdhani / DM Sans / JetBrains Mono</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta3/v2-claro-faq.html">
+      <span class="card-badge">P3 · V2</span>
+      <span class="card-name"><span class="dot" style="background:#ffffff"></span>Claro + FAQ</span>
+      <span class="card-desc">Tema claro · Inter · Schema.org FAQ · México</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta3/v3-claro-electrico.html">
+      <span class="card-badge">P3 · V3</span>
+      <span class="card-name"><span class="dot" style="background:#0d6efd"></span>Claro Eléctrico</span>
+      <span class="card-desc">Tema claro · variante eléctrica · producción</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- PROPUESTA 5 -->
+<div class="section-wrap">
+  <p class="section-title">Propuesta 5 — Kinetic Industrial (Dark · Premium · $10K)</p>
+  <div class="grid">
+
+    <a class="card" href="propuesta5/index.html">
+      <span class="card-badge">P5 · V1</span>
+      <span class="card-name"><span class="dot" style="background:#FF4520"></span>Kinetic Industrial · Dark</span>
+      <span class="card-desc">Tema oscuro · Bebas Neue + Syne · cursor · animaciones · loader · servicios interactivos · parallax</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta5/v2-claro-premium.html">
+      <span class="card-badge">P5 · V2</span>
+      <span class="card-name"><span class="dot" style="background:#E8430F"></span>Kinetic · Claro Naranja</span>
+      <span class="card-desc">Fondo blanco · Cormorant Garamond + Inter · iconos SVG · tipografía editorial elegante</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="card" href="propuesta5/v3-azul-poppins.html">
+      <span class="card-badge">P5 · V3</span>
+      <span class="card-name"><span class="dot" style="background:#1B5FCC"></span>Kinetic · Azul Poppins</span>
+      <span class="card-desc">Fondo blanco · Poppins 800 · azules del logo #1040A8→#1B5FCC→#5AAEF0 · gradiente en titulares</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- PROPUESTA 4 -->
+<div class="section-wrap">
+  <p class="section-title">Propuesta 4 — Startup Moderno (Fondos Blancos)</p>
+  <div class="grid">
+
+    <a class="card" href="propuesta4/index.html">
+      <span class="card-badge">P4 · V1</span>
+      <span class="card-name"><span class="dot" style="background:#2563EB"></span>Claro Startup · Azul</span>
+      <span class="card-desc">Tema blanco · Inter · estilo startup moderno · elegante</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
+<footer>
+  <strong>Innovadora Hermes</strong> — Ingeniería y Mantenimiento Industrial · Selector de propuestas web
+</footer>
+
+</body>
+</html>
